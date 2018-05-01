@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import { withRouter } from 'react-router';
 
 
 const mapStateToProps = state => ({
@@ -16,8 +21,16 @@ class LoginPage extends Component {
     this.state = {
       username: '',
       password: '',
+      open: false,
+      registered: false
     };
   }
+
+componentWillMount() {
+  if (this.props.registered) {
+    this.setState({ open: true });
+  }
+}
 
   componentDidMount() {
     this.props.dispatch(clearError());
@@ -25,18 +38,20 @@ class LoginPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.user.userName) {
-      this.props.history.push('/user');
+      this.setState({ open: false });
+      this.props.history.push('/player');
     }
   }
 
   login = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     if (this.state.username === '' || this.state.password === '') {
       this.props.dispatch(formError());
     } else {
       this.props.dispatch(triggerLogin(this.state.username, this.state.password));
     }
+
   }
 
   handleInputChangeFor = propertyName => (event) => {
@@ -45,60 +60,73 @@ class LoginPage extends Component {
     });
   }
 
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   renderAlert() {
     if (this.props.login.message !== '') {
       return (
-        <h2
+        <p
           className="alert"
           role="alert"
         >
-          { this.props.login.message }
-        </h2>
+          {this.props.login.message}
+        </p>
       );
     }
-    return (<span />);
+    return (<h2>Log in</h2>);
   }
 
-  render() {
+  render() 
+  
+  {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClose}
+      />,
+      <FlatButton
+        label="Login"
+        primary={true}
+
+        onClick={this.login}
+      />,
+    ];
+
     return (
       <div>
-        { this.renderAlert() }
-        <form onSubmit={this.login}>
-          <h1>Login</h1>
-          <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
+        <RaisedButton label="Login" onClick={this.handleOpen} />
+        <Dialog
+          title={this.renderAlert()}
+          actions={actions}
+          modal={true}
+          open={this.state.open}
+        >
+            
+              <TextField
+                hintText="username"
                 name="username"
                 value={this.state.username}
                 onChange={this.handleInputChangeFor('username')}
               />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
+              <TextField
+                hintText="password"
                 name="password"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
               />
-            </label>
-          </div>
-          <div>
-            <input
-              type="submit"
-              name="submit"
-              value="Log In"
-            />
-            <Link to="/register">Register</Link>
-          </div>
-        </form>
-      </div>
+        </Dialog>
+      </div >
     );
   }
+
 }
 
-export default connect(mapStateToProps)(LoginPage);
+const LoginPageWithRouter = withRouter(LoginPage);
+export default connect(mapStateToProps)(LoginPageWithRouter);

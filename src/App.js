@@ -7,41 +7,46 @@ import {
 } from 'react-router-dom';
 
 import Header from './components/Header/Header';
-import LoginPage from './components/LoginPage/LoginPage';
-import RegisterPage from './components/RegisterPage/RegisterPage';
-import UserPage from './components/UserPage/UserPage';
-import InfoPage from './components/InfoPage/InfoPage';
+import Dashboard from './components/Dashboard/Dashboard';
+import Info from './components/Info/Info';
+// import Typography from 'material-ui/Typography'
+// import 'typeface-roboto';
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+// const muiTheme = getMuiTheme({
+//   fontFamily: {
+//     textColor: cyan500,
+//   }
+
+// });
 
 import './styles/main.css';
 
 const App = () => (
-  <div>
-    <Header title="Project Base" />
-    <Router>
-      <Switch>
-        <Redirect exact from="/" to="/home" />
-        <Route
-          path="/home"
-          component={LoginPage}
-        />
-        <Route
-          path="/register"
-          component={RegisterPage}
-        />
-        <Route
-          path="/user"
-          component={UserPage}
-        />
-        <Route
-          path="/info"
-          component={InfoPage}
-        />
-        {/* OTHERWISE (no path!) */}
-        <Route render={() => <h1>404</h1>} />
-
-      </Switch>
-    </Router>
-  </div>
+  <MuiThemeProvider>
+    <div>
+      <Header title="Tone Traveler" />
+      <Router>
+        <div>
+          <Switch>
+            <Redirect exact from="/" to="/dashboard" />
+            <Route
+              path="/dashboard"
+              component={Dashboard}
+            />
+            <Route
+              path="/info"
+              component={Info}
+            />
+            {/* OTHERWISE (no path!) */}
+            <Route render={() => <h1>404</h1>} />
+          </Switch>
+        </div>
+      </Router>
+    </div>
+  </MuiThemeProvider>
 );
 
 export default App;

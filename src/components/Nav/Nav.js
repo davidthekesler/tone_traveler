@@ -1,23 +1,64 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import RaisedButton from 'material-ui/RaisedButton';
 
-const Nav = () => (
-  <div className="navbar">
-    <div>
-      <ul>
-        <li>
-          <Link to="/user">
-            User Home
+import LoginPage from '../../components/LoginPage/LoginPage';
+import RegisterPage from '../../components/RegisterPage/RegisterPage';
+
+// import { USER_ACTIONS } from '../../redux/actions/userActions';
+import { triggerLogout } from '../../redux/actions/loginActions';
+
+
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+
+class Nav extends Component {
+
+  logout = () => {
+    this.props.dispatch(triggerLogout());
+    // this.props.history.push('home');
+  }
+
+  renderLoginItems() {
+
+    if (!this.props.user.userName) {
+      return (
+        <span><RegisterPage/><LoginPage/></span>
+      )
+    }
+    return (
+      <span><RaisedButton onClick={this.logout}>Log Out</RaisedButton></span>
+    )
+  }
+
+  render() {
+
+
+    return (
+      <div className="navbar">
+        <div>
+          <ul>
+            <li>
+              <Link to="/dashboard">
+                Player
           </Link>
-        </li>
-        <li>
-          <Link to="/info">
-            Info Page
+            </li>
+            <li>
+              <Link to="/info">
+                Info
           </Link>
-        </li>
-      </ul>
-    </div>
-  </div>
+            </li>
+          </ul>
+        </div>
+        <div>{this.renderLoginItems()}</div>
+      </div>
+      
 );
 
-export default Nav;
+  }
+
+}
+export default connect(mapStateToProps)(Nav);
