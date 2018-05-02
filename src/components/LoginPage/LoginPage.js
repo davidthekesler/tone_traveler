@@ -6,7 +6,8 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { withRouter } from 'react-router';
+
+// import { withRouter } from 'react-router';
 
 
 const mapStateToProps = state => ({
@@ -128,5 +129,5 @@ componentWillMount() {
 
 }
 
-const LoginPageWithRouter = withRouter(LoginPage);
-export default connect(mapStateToProps)(LoginPageWithRouter);
+{/* const LoginPageWithRouter = withRouter(LoginPage); */}
+export default connect(mapStateToProps)(LoginPage);

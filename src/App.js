@@ -1,14 +1,16 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from 'react-router-dom';
+// import {
+//   BrowserRouter as Router,
+//   Route,
+//   Redirect,
+//   Switch,
+// } from 'react-router-dom';
 
 import Header from './components/Header/Header';
-import Dashboard from './components/Dashboard/Dashboard';
-import Info from './components/Info/Info';
+import Nav from './components/Nav/Nav';
+import ToneComponent from './components/ToneComponent/ToneComponent';
+// import Dashboard from './components/Dashboard/Dashboard';
+// import Info from './components/Info/Info';
 // import Typography from 'material-ui/Typography'
 // import 'typeface-roboto';
 
@@ -28,24 +30,13 @@ const App = () => (
   <MuiThemeProvider>
     <div>
       <Header title="Tone Traveler" />
-      <Router>
-        <div>
-          <Switch>
-            <Redirect exact from="/" to="/dashboard" />
-            <Route
-              path="/dashboard"
-              component={Dashboard}
-            />
-            <Route
-              path="/info"
-              component={Info}
-            />
-            {/* OTHERWISE (no path!) */}
-            <Route render={() => <h1>404</h1>} />
-          </Switch>
-        </div>
-      </Router>
     </div>
+    <div>
+      <Nav/>
+      </div>
+      <div>
+        <ToneComponent/>
+        </div>
   </MuiThemeProvider>
 );
 

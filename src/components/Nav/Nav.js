@@ -38,24 +38,9 @@ class Nav extends Component {
 
 
     return (
-      <div className="navbar">
-        <div>
-          <ul>
-            <li>
-              <Link to="/dashboard">
-                Player
-          </Link>
-            </li>
-            <li>
-              <Link to="/info">
-                Info
-          </Link>
-            </li>
-          </ul>
-        </div>
+
         <div>{this.renderLoginItems()}</div>
-      </div>
-      
+ 
 );
 
   }

@@ -6,7 +6,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { withRouter } from 'react-router';
+// import { withRouter } from 'react-router';
 
 const mapStateToProps = state => ({
   // user: state.user,
@@ -147,7 +147,7 @@ class RegisterPage extends Component {
 }
 
 
-const RegisterPageWithRouter = withRouter(RegisterPage);
+// const RegisterPageWithRouter = withRouter(RegisterPage);
 
-export default connect(mapStateToProps)(RegisterPageWithRouter);
+export default connect(mapStateToProps)(RegisterPage);
 

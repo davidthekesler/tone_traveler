@@ -34,7 +34,6 @@ class Info extends Component {
 
     return (
       <div>
-        <Nav />
         { content }
       </div>
     );
