@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 // import ReactDOM from 'react-dom';
 import './ToneComponent.css';
 
 import Dashboard from '../../components/Dashboard/Dashboard';
 import Info from '../../components/Info/Info';
+import Library from '../../components/Library/Library';
 
 // import Slider, { Range } from 'rc-slider';
 // import 'rc-slider/assets/index.css';
 import RaisedButton from 'material-ui/RaisedButton';
+
 
 import Tone from 'tone';
 
@@ -67,6 +71,7 @@ class ToneComponent extends Component {
             balance: 50,
             masterVolume: 0,
             droneId: 1,
+            descriptionString: '',
 
             // playerBuffer: {},
             // playerVol: {},
@@ -107,6 +112,15 @@ class ToneComponent extends Component {
             })
 
         });
+
+        this.props.dispatch({
+            type: 'GET_PRESETS'
+        });
+
+        this.props.dispatch({
+            type: 'GET_DESCRIPTIONS_GENERAL'
+        });
+
 
     }//end componentDidMount
 
@@ -164,17 +178,17 @@ class ToneComponent extends Component {
         playerVol.volume.rampTo(this.state.playerVolume);
     }//end handlebalance
 
-    //TO-DO re-assign pitches based off drone pitch.
+    //TO-DO re-assign pitches based off drone pitch, fix state issue not loading
     handleDrone = (event, index, value) => {
 
         if (this.state.isPlaying) {
-            console.log('value inside conditional isPlaying:',value);
+            console.log('this is this.state.droneId upon retrigger:', this.state.droneId);
             this.setState({
                 droneId: value
             });
             player.stop();
             player.buffer = droneSamples.get(value.toString());
-            console.log('this is this.state.droneId inside conditional isPlaying:', this.state.droneId);
+            // console.log('this is this.state.droneId inside conditional isPlaying:', this.state.droneId);
             player.start();
         } else {
             // console.log('value inside conditional !isPlaying:',value);
@@ -184,17 +198,47 @@ class ToneComponent extends Component {
             player.stop();
             player.buffer = droneSamples.get(value.toString());
 
-            console.log('this is this.state.droneId inside conditional !isPlaying:', this.state.droneId);
-
+            // console.log('this is this.state.droneId inside conditional !isPlaying:', this.state.droneId);
         }
-
     }//end handledrone
+
+
+    handleSaveToLibrary = () => {
+        console.log('in handleSaveToLibrary');
+        this.props.dispatch({
+            type: 'ADD_PRESET',
+            payload: this.state
+        });
+
+    }
+
+    handleSaveChanges = () => {
+        //TO-DO PUT FOLLOWED BY GET SAGA
+    }
+
+    handleDelete = (libraryItem) => {
+        console.log('got to handleDelete', libraryItem.id)
+        //TO-DO
+    }
+
+
+    handleUpdate = (libraryItem) => {
+        console.log('got to handleUpdate', libraryItem.id)
+        //TO-DO
+    }
+
+    handleStartNew = () => {
+        this.setState({
+            isPreset: false
+        })
+    };
 
     handleRouter = (routerString) => {
         this.setState({
             router: routerString
         });
     }
+
 
     dashboardRender = () => {
         return (
@@ -205,6 +249,10 @@ class ToneComponent extends Component {
                 handleVolume={this.handleVolume}
                 handleBinaural={this.handleBinaural}
                 handleDrone={this.handleDrone}
+                handleSaveToLibrary={this.handleSaveToLibrary}
+                handleSaveChanges={this.handleSaveChanges}
+                handleStartNew={this.handleStartNew}
+
                 synthFreq={this.state.synthFreq}
                 binauralVal={this.state.binauralVal}
                 masterVolume={this.state.masterVolume}
@@ -216,6 +264,7 @@ class ToneComponent extends Component {
                 isPlaying={this.state.isPlaying}
                 isPreset={this.state.isPreset}
             />
+
         )
     }
 
@@ -225,17 +274,26 @@ class ToneComponent extends Component {
         switch (this.state.router) {
             case 'dashboard': {
                 return (
-                    <div>{this.dashboardRender()}</div>
+                    <div>
+                        <div>{this.dashboardRender()}</div>
+                        <div><Library handleDelete={this.handleDelete} handleUpdate={this.handleUpdate}/></div>
+                    </div>
                 )
             }
             case 'info': {
                 return (
+                    <div>
                     <div><Info /></div>
+                    <div><Library handleDelete={this.handleDelete} handleUpdate={this.handleUpdate}/></div>
+                    </div>
                 )
             }
             default: {
                 return (
-                    <div>{this.dashboardRender()}</div>
+                    <div>
+                        <div>{this.dashboardRender()}</div>
+                        <div><Library handleDelete={this.handleDelete} handleUpdate={this.handleUpdate}/></div>
+                    </div>
                 )
             }
         }
@@ -254,4 +312,10 @@ class ToneComponent extends Component {
 
 }//end ToneComponent
 
-export default ToneComponent;
+const mapStateToProps = reduxState => ({
+    reduxState,
+});
+
+export default connect(mapStateToProps)(ToneComponent);
+
+// export default ToneComponent;

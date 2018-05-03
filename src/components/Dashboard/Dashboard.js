@@ -5,7 +5,7 @@ import Nav from '../../components/Nav/Nav';
 import ToneComponent from '../../components/ToneComponent/ToneComponent';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
-import { triggerLogout } from '../../redux/actions/loginActions';
+// import { triggerLogout } from '../../redux/actions/loginActions';
 
 import Slider, { Range } from 'rc-slider';
 // import Slider from 'material-ui/Slider';
@@ -15,33 +15,32 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { PlayCircleFilled, Stop } from 'material-ui-icons';
 
+import '../../styles/main.css';
+
+
 const mapStateToProps = state => ({
   user: state.user,
-  droneUrls: [
-    {}
-  ]
+  description: state.description
 });
 
 class Dashboard extends Component {
+
+  constructor () {
+    super();
+
+    this.state = {
+      descriptionGeneral: '',
+      tooMuch: '',
+      tooLittle: '',
+      optimal: ''
+    }
+
+  }
 
   componentDidMount() {
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
     // console.log('here is props', this.props);
   }
-
-  //   stopStartElement = () => {
-
-  //     if (this.props.isPlaying) {
-  //       return (
-  //         <Stop onClick={this.props.handleStop} />
-  //       )
-  //     }
-  //     else {
-  //       return (
-  //         <PlayCircleFilled onClick={this.props.handleStart} />
-  //     )
-  //   }
-  // }
 
   //TO-DO need to create conditional for isLoaded && user and isLoaded && no user and !isLoaded
   userButtons = () => {
@@ -49,17 +48,47 @@ class Dashboard extends Component {
       <div>
         <div>
           {!this.props.isPreset ?
-            <RaisedButton onClick={this.props.saveToLibrary}>Save To Library</RaisedButton> :
-            <RaisedButton onClick={this.props.saveChanges}>Save Changes</RaisedButton>}
+            <RaisedButton onClick={this.props.handleSaveToLibrary}>Save To Library</RaisedButton> :
+            <RaisedButton onClick={this.props.handleSaveChanges}>Save Changes</RaisedButton>}
         </div>
         <div>
-          <RaisedButton onClick={this.props.startNew}>Start New</RaisedButton>
+          <RaisedButton onClick={this.props.handleStartNew}>Start New</RaisedButton>
         </div>
       </div>
     )
   };
 
   render() {
+
+    // Stringify Example <pre>{JSON.stringify(this.props.preset.allPresetsReducer)}</pre>
+
+
+    // let descriptionSpecific = () => {
+
+    //     for (let description of this.props.description.allGeneralDescriptionsReducer) {
+    //       if ((this.props.binauralVal >= description.min) && (this.props.binauralVal <= description.max)) {
+
+    //         return (
+    //             { title: description.title,
+    //               description: description.description,
+    //               toomuch: description.tooMuch,
+    //               toolittle: description.toolittle,
+    //               optimal: description.optimal
+    //             }
+    //         )
+    //       }
+    //     }
+    // }
+    // descriptionSpecific();
+    // let descriptionMapped = this.props.description.allGeneralDescriptionsReducer.map((description) => {
+
+    //     if ((this.props.binauralVal >= description.min) && (this.props.binauralVal <= description.max)) {
+
+    //   return (
+    //       description
+    //   )
+    // }
+    // })
 
 
     if (this.props.isLoaded) {
@@ -92,11 +121,13 @@ class Dashboard extends Component {
 
           {this.props.isPlaying ? <Stop onClick={this.props.handleStop} /> : <PlayCircleFilled onClick={this.props.handleStart} />}
 
+          <div></div>
+
           <div id="sliderBinaural">Binaural Slider:
       <Slider
               min={1}
-              max={40}
-              step={1}
+              max={30}
+              step={.01}
               value={this.props.binauralVal}
               reverse={false}
               tooltip={true}
@@ -117,13 +148,13 @@ class Dashboard extends Component {
             />
           </div>
 
-          {this.props.user.userName ? this.userButtons() : null} 
-  
-          <div></div>
+          {this.props.user.userName ? this.userButtons() : null}
+
+        
 
         </div>)
     } else {
-      return <div>Loading...</div>
+      return <div class="loader"></div>
     }//end return conditionals
   }//end render
 }
