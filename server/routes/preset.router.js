@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
     console.log('is authenticated?', req.isAuthenticated());
     console.log('user', req.user);
     if(req.isAuthenticated()){//in order to post an item, user must be signed in
-        let queryText = `INSERT INTO presets ("binauralval", "synthfreq", "synthvolume", "playervolume", "balance", "mastervolume", "drone_id", "descriptionstring", "person_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
+        let queryText = `INSERT INTO presets ("binauralval", "synthfreq", "synthvolume", "playervolume", "balance", "mastervolume", "drone_id", "descriptionstring", "descriptiongeneral_id", "person_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
         pool.query(queryText, [req.body.binauralVal, 
                                 req.body.synthFreq, 
                                 req.body.synthVolume,
@@ -39,6 +39,7 @@ router.post('/', (req, res) => {
                                 req.body.masterVolume,
                                 req.body.droneId,
                                 req.body.descriptionString,
+                                req.body.descriptionGeneralId,
                                 req.user.id]).then((result)=>{
 
             res.sendStatus(201);

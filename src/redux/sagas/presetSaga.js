@@ -3,12 +3,15 @@ import axios from 'axios';
 
 
 function* postSaga(action) {
-    console.log('in postSaga')
+    // console.log('in postSaga')
     try {
         const addedPreset = yield call(axios.post, '/api/preset', action.payload);
-        console.log('added item', addedPreset);
+        // console.log('added item', addedPreset);
         yield put({
             type: 'GET_PRESETS',
+        })
+        yield put({
+            type: 'GET_LIBRARY',
         })
     } catch (error) {
         console.log('postSaga ERROR', error)
@@ -16,7 +19,7 @@ function* postSaga(action) {
 }
 
 function* getSaga(action) {
-    console.log('in getSaga')
+    // console.log('in getSaga')
     try {
         const presetResponse = yield call(axios.get, '/api/preset');
         console.log(presetResponse)

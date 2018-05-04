@@ -3,12 +3,15 @@ import user from './userReducer';
 import login from './loginReducer';
 import preset from './presetReducer';
 import description from './descriptionReducer';
+import library from './libraryReducer';
 
 const store = combineReducers({
   user,
   login,
   preset,
-  description
+  description,
+  library
+  
 });
 
 export default store;

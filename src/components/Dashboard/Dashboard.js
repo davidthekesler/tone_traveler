@@ -20,12 +20,11 @@ import '../../styles/main.css';
 
 const mapStateToProps = state => ({
   user: state.user,
-  description: state.description
 });
 
 class Dashboard extends Component {
 
-  constructor () {
+  constructor() {
     super();
 
     this.state = {
@@ -42,53 +41,51 @@ class Dashboard extends Component {
     // console.log('here is props', this.props);
   }
 
+
   //TO-DO need to create conditional for isLoaded && user and isLoaded && no user and !isLoaded
+
+
   userButtons = () => {
-    return (
-      <div>
+
+    if (this.props.isChanged && !this.props.isPreset) {
+      return (
         <div>
-          {!this.props.isPreset ?
-            <RaisedButton onClick={this.props.handleSaveToLibrary}>Save To Library</RaisedButton> :
-            <RaisedButton onClick={this.props.handleSaveChanges}>Save Changes</RaisedButton>}
+          <div>
+            <RaisedButton onClick={this.props.handleSaveToLibrary}>Save To Library</RaisedButton>
+          </div>
+          <div>
+          </div>
         </div>
+      )
+    }
+    else if (this.props.isChanged && this.props.isPreset) {
+      return (
         <div>
-          <RaisedButton onClick={this.props.handleStartNew}>Start New</RaisedButton>
+          <div>
+            <RaisedButton onClick={this.props.handleSaveChanges}>Save Changes</RaisedButton>
+          </div>
+          <div>
+            <RaisedButton onClick={this.props.handleStartNew}>Save as New</RaisedButton>
+          </div>
         </div>
-      </div>
-    )
-  };
+      )
+    }
+    else {
+      return (
+        <div>
+          <div>
+          </div>
+          <div>
+          </div>
+        </div>
+      )
+    }
+  }
+
 
   render() {
 
     // Stringify Example <pre>{JSON.stringify(this.props.preset.allPresetsReducer)}</pre>
-
-
-    // let descriptionSpecific = () => {
-
-    //     for (let description of this.props.description.allGeneralDescriptionsReducer) {
-    //       if ((this.props.binauralVal >= description.min) && (this.props.binauralVal <= description.max)) {
-
-    //         return (
-    //             { title: description.title,
-    //               description: description.description,
-    //               toomuch: description.tooMuch,
-    //               toolittle: description.toolittle,
-    //               optimal: description.optimal
-    //             }
-    //         )
-    //       }
-    //     }
-    // }
-    // descriptionSpecific();
-    // let descriptionMapped = this.props.description.allGeneralDescriptionsReducer.map((description) => {
-
-    //     if ((this.props.binauralVal >= description.min) && (this.props.binauralVal <= description.max)) {
-
-    //   return (
-    //       description
-    //   )
-    // }
-    // })
 
 
     if (this.props.isLoaded) {
@@ -121,8 +118,6 @@ class Dashboard extends Component {
 
           {this.props.isPlaying ? <Stop onClick={this.props.handleStop} /> : <PlayCircleFilled onClick={this.props.handleStart} />}
 
-          <div></div>
-
           <div id="sliderBinaural">Binaural Slider:
       <Slider
               min={1}
@@ -134,6 +129,7 @@ class Dashboard extends Component {
               onChange={this.props.handleBinaural}
             />
           </div>
+          <div>{this.props.activeSystemDescription.title}</div>
           <div>Slider Value: {this.props.binauralVal}</div>
           <div>BinauralVal: {this.props.binauralVal}</div>
           <div id="sliderVolume"> Volume Slider:
@@ -150,7 +146,7 @@ class Dashboard extends Component {
 
           {this.props.user.userName ? this.userButtons() : null}
 
-        
+
 
         </div>)
     } else {
