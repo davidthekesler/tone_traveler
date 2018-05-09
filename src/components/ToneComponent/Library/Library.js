@@ -8,6 +8,8 @@ import 'rc-slider/assets/index.css';
 import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
+
 import Drawer from 'material-ui/Drawer';
 import { Delete } from 'material-ui-icons';
 import { PlayCircleFilled, Stop } from 'material-ui-icons';
@@ -28,11 +30,17 @@ class Library extends Component {
 
   libraryRender = () => {
     if (this.props.user.userName) {
-
+      
+      if (this.props.library.length === 0 ) {
+          return (
+              <div style={{padding: '10px'}}><Typography variant="body1">Your saved presets will appear here.</Typography></div>
+          )
+      } else {
       let libraryArray = this.props.library.map((libraryItem) => {
         return (
           <div>
-            <Card key={libraryItem.id}>
+
+            <Card style={{padding: '10px'}} key={libraryItem.id}>
               <div>{libraryItem.descriptionString}</div>
               <div>{libraryItem.title}, {libraryItem.binauralval} Hz</div>
               <div>{libraryItem.description}</div>
@@ -48,13 +56,13 @@ class Library extends Component {
         
         <div>{libraryArray}</div>
       )//end return
-
+    }
     }
 
 
     else {
       return (
-        <div>Sign up to save your presets!</div>)
+              <div style={{padding: '10px'}}><Typography  variant="body1">Sign up to save your presets!</Typography></div>)
     }
   }
 
@@ -62,7 +70,7 @@ class Library extends Component {
 
     // Stringify Example <pre>{JSON.stringify(this.props.preset.allPresetsReducer)}</pre>
     return (
-      <div id="libraryDiv">{this.libraryRender()}</div>
+      <div>{this.libraryRender()}</div>
     )
 
   }//end render

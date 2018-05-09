@@ -8,14 +8,13 @@ import 'rc-slider/assets/index.css';
 import Button from 'material-ui/Button';
 import Select from 'material-ui/Select';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
 // import MenuItem from 'material-ui/MenuItem';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Input, { InputLabel } from 'material-ui/Input';
 import { FormControl, FormHelperText } from 'material-ui/Form';
 import Knob from 'react-canvas-knob';
 import Grid from 'material-ui/Grid';
-
-import Typography from 'material-ui/Typography';
 // import Button from 'material-ui/Button';
 import { PlayCircleFilled, Stop, VolumeUp } from 'material-ui-icons';
 
@@ -93,11 +92,13 @@ class Dashboard extends Component {
             direction='row'
             justify='center'>
 
+
             <Grid item xs={12}>
-              <Card id="selectSound">
+              <Card id="selectSoundContainer">
                 <FormControl>
-                  <InputLabel htmlFor="selectSound">Select Sound</InputLabel>
-                  <Select id="selectSound"
+                  <div id="selectSound">
+                  <InputLabel>Select Sound</InputLabel>
+                  <Select 
                     value={this.props.droneId}
                     onChange={this.props.handleDrone}
                   >
@@ -106,6 +107,7 @@ class Dashboard extends Component {
               </MenuItem>
                     {soundMenu}
                   </Select>
+                  </div>
                 </FormControl>
               </Card>
             </Grid>
@@ -129,24 +131,33 @@ class Dashboard extends Component {
             </Grid>
 
             <Grid item xs={12}>
-              <Card id="sliderBinauralContainer">
-                <div id="sliderBinauralLabel">
-                  {this.props.activeSystemDescription.title}
-                </div>
-                <div id="sliderBinaural">
-                  <Knob
-                    min={1}
-                    max={30}
-                    step={.1}
-                    width={216}
-                    height={216}
-                    value={this.props.binauralVal}
-                    onChange={this.props.handleBinaural}
-                  />
-                </div>
-                <div id="sliderBinauralSpecificLabel">
-                  <Typography>Good for: {this.props.activeSystemDescription.optimal}
-                  </Typography>
+              <Card>
+                <div id="sliderBinauralContainer">
+
+                  <div id="sliderBalanceSubContainer">
+
+                  <div id="sliderBinauralLabel">
+                    {this.props.activeSystemDescription.title}
+                  </div>
+
+                  <div id="sliderBinaural">
+                    <Knob
+                      min={1}
+                      max={30}
+                      step={.1}
+                      width={216}
+                      height={216}
+                      value={this.props.binauralVal}
+                      onChange={this.props.handleBinaural}
+                    />
+                  </div>
+
+                  <div id="sliderBinauralSpecificLabel">
+                    <Typography variant="display1">{this.props.activeSystemDescription.optimal}
+                    </Typography>
+                  </div>
+                  </div>
+
                 </div>
               </Card>
             </Grid>
@@ -184,7 +195,11 @@ class Dashboard extends Component {
         </div>
       )
     } else {
-      return <div class="loader"></div>
+      return (
+        <div id="#dashboardAndInfoDiv">
+          <div class="loader"></div>
+        </div>
+      )
     }//end return conditionals
   }//end render
 }

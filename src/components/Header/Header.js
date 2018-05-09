@@ -40,9 +40,10 @@ class Header extends Component {
     return (
       <div>
         <div id="loginOut">
-          <Button onClick={this.logout}>Log Out</Button>
+          <Button variant="raised" onClick={this.logout}>Log Out</Button>
         </div>
         <div id="register">
+          <Typography variant="button">Welcome, { this.props.user.userName }!</Typography>
         </div>
       </div>
     )

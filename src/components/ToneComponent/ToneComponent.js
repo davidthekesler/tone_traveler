@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import Tone from 'tone';
 
 import Dashboard from '../../components/ToneComponent/Dashboard/Dashboard';
 import Info from '../../components/ToneComponent/Info/Info';
 import Library from '../../components/ToneComponent/Library/Library';
 import Button from 'material-ui/Button';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import Tone from 'tone';
 import Typography from 'material-ui/Typography';
 
 import '../../styles/main.css';
@@ -59,11 +59,11 @@ class ToneComponent extends Component {
         this.state = {
             router: 'dashboard',
             id: 1,
-            binauralVal: 1,
+            binauralVal: 2.2,
             synthFreq: 130.81,
             synthVolume: -60,
             playerVolume: -5,
-            balance: 50,
+            balance: -20,
             masterVolume: 0,
             droneId: 1,
             descriptionString: '',
@@ -389,30 +389,40 @@ class ToneComponent extends Component {
     //alternative router to keep audio context active while different pages are loaded
     routerRender = () => {
 
-        switch (this.state.router) {
-            case 'dashboard': {
-                return (
-                    <div id="mainViewDiv">
-                        <div>{this.dashboardRender()}</div>
-                        <div>{this.libraryRender()}</div>
-                    </div>
-                )
-            }
-            case 'info': {
-                return (
-                    <div id="mainViewDiv">
-                        <div><Info /></div>
-                        <div id>{this.libraryRender()}</div>
-                    </div>
-                )
-            }
-            default: {
-                return (
-                    <div id="mainViewDiv">
-                        <div>{this.dashboardRender()}</div>
-                        <div>{this.libraryRender()}</div>
-                    </div>
-                )
+        if (!this.state.isLoaded) {
+            return (
+                <div id="spinnerDiv">
+                    <div class="loader"></div>
+                </div>
+            )
+        } else {
+
+            switch (this.state.router) {
+
+                case 'dashboard': {
+                    return (
+                        <div id="mainViewDiv">
+                            <div id="dashboardAndInfoDiv">{this.dashboardRender()}</div>
+                            <div id="libraryDiv">{this.libraryRender()}</div>
+                        </div>
+                    )
+                }
+                case 'info': {
+                    return (
+                        <div id="mainViewDiv">
+                        <div id="dashboardAndInfoDiv"><Info /></div>
+                            <div id="libraryDiv">{this.libraryRender()}</div>
+                        </div>
+                    )
+                }
+                default: {
+                    return (
+                        <div id="mainViewDiv">
+                        <div id="dashboardAndInfoDiv">{this.dashboardRender()}</div>
+                            <div id="libraryDiv">{this.libraryRender()}</div>
+                        </div>
+                    )
+                }
             }
         }
     }//end routerRender
