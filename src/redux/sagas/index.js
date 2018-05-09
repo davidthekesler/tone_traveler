@@ -4,6 +4,7 @@ import loginSaga from './loginSaga';
 import presetSaga from './presetSaga';
 import descriptionSaga from './descriptionSaga';
 import librarySaga from './librarySaga';
+import soundsSaga from './soundsSaga';
 
 
 export default function* rootSaga() {
@@ -12,7 +13,9 @@ export default function* rootSaga() {
     loginSaga(),
     presetSaga(),
     descriptionSaga(),
-    librarySaga()
+    librarySaga(),
+    soundsSaga()
+
     // watchIncrementAsync()
   ]);
 }

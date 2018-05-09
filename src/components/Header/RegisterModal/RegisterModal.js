@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import LoginPage from '../../components/LoginPage/LoginPage';
+import LoginModal from '../LoginModal/LoginModal';
 // import { Link } from 'react-router-dom';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import Dialog, { DialogTitle, DialogActions } from 'material-ui/Dialog';
+import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 // import { withRouter } from 'react-router';
 
@@ -13,7 +12,7 @@ const mapStateToProps = state => ({
   // login: state.login,
 });
 
-class RegisterPage extends Component {
+class RegisterModal extends Component {
   constructor(props) {
     super(props);
 
@@ -92,62 +91,52 @@ class RegisterPage extends Component {
         </p>
       );
     }
-    return (<h2>Register</h2>);
+    return (<p>Register</p>);
   }
 
   render() {
 
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-      <FlatButton
-        label="Register"
-        primary={true}
-
-        onClick={this.registerUser}
-      />,
-    ];
-
     if (this.state.registered) {
       return (
-
-        <LoginPage registered={true} />
+        <LoginModal registered={true} />
       )
     }
 
     return (
       <div>
-        <RaisedButton label="Sign Up" onClick={this.handleOpen} />
+        <Button variant="raised" onClick={this.handleOpen}>Sign Up</Button>
         <Dialog
-          title={this.renderAlert()}
-          actions={actions}
-          modal={true}
           open={this.state.open}
         >
+          <DialogTitle>{this.renderAlert()}</DialogTitle>
 
           <TextField
-            hintText="username"
-            name="username"
+            required
+            label="username"
+            margin="normal"
             value={this.state.username}
             onChange={this.handleInputChangeFor('username')}
           />
           <TextField
-            hintText="password"
-            name="password"
+            required
+            label="password"
+            margin="normal"
             value={this.state.password}
             onChange={this.handleInputChangeFor('password')}
           />
+          <DialogActions>
+            <Button
+              onClick={this.handleClose}>Cancel</Button>
+            <Button
+              variant="raised"
+              onClick={this.registerUser}>Register</Button>
+          </DialogActions>
         </Dialog>
-      </div>
+      </div >
     );
   }
 }
 
 
-// const RegisterPageWithRouter = withRouter(RegisterPage);
-
-export default connect(mapStateToProps)(RegisterPage);
+export default connect(mapStateToProps)(RegisterModal);
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { USER_ACTIONS } from '../../../redux/actions/userActions';
 
-import Nav from '../../components/Nav/Nav';
-import { USER_ACTIONS } from '../../redux/actions/userActions';
+import '../../../styles/main.css';
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -14,9 +14,7 @@ class Info extends Component {
   }
 
   componentDidUpdate() {
-    // if (!this.props.user.isLoading && this.props.user.userName === null) {
-    //   this.props.history.push('home');
-    // }
+
   }
 
   render() {
@@ -40,5 +38,4 @@ class Info extends Component {
   }
 }
 
-// this allows us to use <App /> in index.js
 export default connect(mapStateToProps)(Info);

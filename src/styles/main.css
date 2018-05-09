@@ -1,93 +1,174 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+/* App */
+
+#mainContainer {
+    display: flex;
+    flex-direction: column;
 }
 
-.instructions h1 {
-    font-size: 24px;
-    font-weight: 700;
-}
+/* Header */
 
-.instructions {
-    background-color: #00acb0;
-    padding: 5px;
-    color: #ece7e7;
-}
-
-form {
-    background-color: #dbd5d5;
-    width: 30%;
-    height: 250px;
-    margin: 20px auto;
-    padding: 25px;
-    border-radius: 2px;
-}
-
-input {
-    margin: 5px;
-    margin-bottom: 10px;
-}
-
-input[type="submit"] {
-    margin: 10px;
-}
-
-.message {
-    padding: 10px 0;
-}
-
-.message p {
-    margin-left: 10px;
-}
-
-.message:nth-child(odd) {
-     background-color: #eeeeee;
-}
-
-.message:nth-child(even) {
-    background-color: #f8f8f8;
-}
-
-.navbar {
-  background-color: #00acb0;
-  width: 100%;
-  border-radius: 0px;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-li {
-    float: left;
-}
-
-li a {
-    display: block;
-    color: white;
+#header {
+    background: linear-gradient(45deg, #b2ebf2 30%, #FF8E53 90%);
+    height: 100px;
+    width: 100%;
     text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-
+    position: relative;
 }
 
-li a:hover {
-    text-decoration: underline;
-    color: #eee;
+#loginButtons {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    width: 100px;
 }
+
+#loginOut {
+    height: 50px;
+    width: 100px;
+}
+
+#register {
+    height: 50px;
+    width: 100px;
+}
+
+/*ToneComponent */
 
 .loader {
     border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border-top: 16px solid #ffff72; /* Blue */
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
     animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* #subContainer {
+
+} */
+
+#navContainer {
+
+    display: inline;
+}
+
+#navDashboard {
+    width: 50%;
+    height: 29px;
+    text-align: center;
+    float: left;
+}
+
+#navInfo {
+    width: 50%;
+    height: 29px;
+    text-align: center;
+    float: left;
+}
+
+/*Dashboard And Info Div*/
+
+#mainViewDiv {
+    display: flex;
+    flex-direction: row;
+    float: left;
+}
+
+#dashboardAndInfoDiv {
+    width: 90%
+}
+
+#libraryDiv {
+    width: 10%;
+}
+    
+
+/*Dashboard*/
+
+
+#selectSound {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+/* 
+#selectSoundDropdown {
+    height: 10px;
+    width: 20px;
+} */
+
+#sliderBalanceContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+#sliderBalanceSubContainer {
+    width: 200px;
+    height: 50px;
+}
+
+#sliderBalanceLabel {
+    position: absolute;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+#sliderBalance {
+    position: absolute;
+    height: 50px;
+    margin-left: 98px;
+}
+
+#sliderBinauralContainer {
+    padding: 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+#sliderBinauralLabel {
+    position: absolute;
+    margin-left: 0px;
+    margin-top: 20px;
+}
+
+sliderBinauralSpecificLabel {
+    position: absolute;
+    margin-right: 0px;
+    margin-top: 20px;
+}
+
+#sliderBinaural {
+    margin-bottom: 0px;
+}
+
+#sliderVolumeContainer {
+    display: flex;
+    flex-direction: row;
+}
+  
+  #sliderVolume {
+    height: 40px;
+    width: 100px;
+    margin-left: 10px;
+    margin-right: 5px;
+  }
+
+  #sliderVolumeIcon {
+    height: 40px;
+    width: 40px;
+    margin-left: 5px;
+    margin-right: 10px;
+  }
+
+
+  
+.playStopIcon {
+    transform: scale(4);
 }

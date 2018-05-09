@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import { triggerLogin, formError, clearError } from '../../../redux/actions/loginActions';
+import Dialog, { DialogTitle, DialogActions } from 'material-ui/Dialog';
+import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
+import Typography from 'material-ui/Typography';
+
+import '../../../styles/main.css';
 
 // import { withRouter } from 'react-router';
 
@@ -15,7 +17,7 @@ const mapStateToProps = state => ({
   login: state.login,
 });
 
-class LoginPage extends Component {
+class LoginModal extends Component {
   constructor(props) {
     super(props);
 
@@ -27,11 +29,11 @@ class LoginPage extends Component {
     };
   }
 
-componentWillMount() {
-  if (this.props.registered) {
-    this.setState({ open: true });
+  componentWillMount() {
+    if (this.props.registered) {
+      this.setState({ open: true });
+    }
   }
-}
 
   componentDidMount() {
     this.props.dispatch(clearError());
@@ -72,56 +74,51 @@ componentWillMount() {
   renderAlert() {
     if (this.props.login.message !== '') {
       return (
-        <p
-          className="alert"
-          role="alert"
+        <Typography variant="display 2"
         >
           {this.props.login.message}
-        </p>
+        </Typography>
       );
     }
-    return (<h2>Log in</h2>);
+    return (
+      <Typography variant="display 2"
+      >Log in
+        </Typography>
+    );
   }
 
-  render() 
-  
-  {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-      <FlatButton
-        label="Login"
-        primary={true}
+  render() {
 
-        onClick={this.login}
-      />,
-    ];
 
     return (
       <div>
-        <RaisedButton label="Login" onClick={this.handleOpen} />
+        <Button onClick={this.handleOpen}>Log in</Button>
         <Dialog
-          title={this.renderAlert()}
-          actions={actions}
-          modal={true}
           open={this.state.open}
         >
-            
-              <TextField
-                hintText="username"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-              <TextField
-                hintText="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
+          <DialogTitle>{this.renderAlert()}</DialogTitle>
+          <TextField
+            required
+            label="username"
+            margin="normal"
+            value={this.state.username}
+            onChange={this.handleInputChangeFor('username')}
+          />
+          <TextField
+            required
+            label="password"
+            margin="normal"
+            type="password"
+            value={this.state.password}
+            onChange={this.handleInputChangeFor('password')}
+          />
+          <DialogActions>
+            <Button
+              onClick={this.handleClose}>Cancel</Button>
+            <Button
+              variant="raised"
+              onClick={this.login}>Log In</Button>
+          </DialogActions>
         </Dialog>
       </div >
     );
@@ -129,5 +126,4 @@ componentWillMount() {
 
 }
 
-{/* const LoginPageWithRouter = withRouter(LoginPage); */}
-export default connect(mapStateToProps)(LoginPage);
+export default connect(mapStateToProps)(LoginModal);
