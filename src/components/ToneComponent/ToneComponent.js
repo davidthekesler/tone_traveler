@@ -2,17 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Tone from 'tone';
+import { USER_ACTIONS } from '../../redux/actions/userActions';
 
 import Dashboard from '../../components/ToneComponent/Dashboard/Dashboard';
 import Info from '../../components/ToneComponent/Info/Info';
 import Library from '../../components/ToneComponent/Library/Library';
 import Button from 'material-ui/Button';
+import Card from 'material-ui/Card';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
 
 import '../../styles/main.css';
 
 Tone.context.latencyHint = 'playback';
+
+const mapStateToProps = state => ({
+    user: state.user,
+    description: state.description,
+    sounds: state.sounds
+});
+
 
 let droneSamples = {};
 
@@ -61,10 +70,10 @@ class ToneComponent extends Component {
             id: 1,
             binauralVal: 2.2,
             synthFreq: 130.81,
-            synthVolume: -60,
-            playerVolume: -5,
+            synthVolume: -45,
+            playerVolume: -20,
             balance: -20,
-            masterVolume: 0,
+            masterVolume: -5,
             droneId: 1,
             descriptionString: '',
             descriptionGeneralId: 1,
@@ -73,7 +82,8 @@ class ToneComponent extends Component {
             isLoaded: false,
             isPlaying: false,
             isPreset: false,
-            isChanged: false
+            isChanged: false,
+            drawerOpen: false
         }//end state
     }//end constructor
 
@@ -83,6 +93,10 @@ class ToneComponent extends Component {
         // this.props.dispatch({
         //     type: 'GET_PRESETS'
         // });
+
+        this.props.dispatch({ 
+            type: USER_ACTIONS.FETCH_USER 
+        });
 
         this.props.dispatch({
             type: 'GET_DESCRIPTIONS_GENERAL'
@@ -308,7 +322,8 @@ class ToneComponent extends Component {
             descriptionString: libraryItem.descriptionstring,
             isPlaying: true,
             isPreset: true,
-            isChanged: true,
+            isChanged: !this.state.isChanged,
+            drawerOpen: !this.state.drawerOpen
         }, () => {
             player.buffer = droneSamples.get(this.state.droneId);
             let freq1 = this.state.synthFreq - (this.state.binauralVal / 2);
@@ -372,7 +387,6 @@ class ToneComponent extends Component {
                 isPreset={this.state.isPreset}
                 isChanged={this.state.isChanged}
             />
-
         )
     }
 
@@ -382,8 +396,35 @@ class ToneComponent extends Component {
             <Library handleDelete={this.handleDelete}
                 handleUpdate={this.handleUpdate}
                 handleLoad={this.handleLoad}
+                handleDrawerOpen={this.handleDrawerOpen}
+                drawerOpen={this.state.drawerOpen}
             />
         )
+    }
+
+    libraryUserYesRouterRender = () => {
+
+            return (
+                <div id="navLibrary" onClick={this.handleDrawerOpen}>
+                    <Typography variant="body1">Library</Typography>
+                </div>
+            )
+        }
+
+    libraryUserNoRouterRender = () => {
+            return (
+                <div id="navLibrary">
+                    <Typography variant="caption">Sign up or log in to save presets!</Typography>
+                </div>
+            )
+        }
+
+
+    handleDrawerOpen = () => {
+        console.log('in handleDrawerOpen');
+        this.setState({
+            drawerOpen: !this.state.drawerOpen
+        })
     }
 
     //alternative router to keep audio context active while different pages are loaded
@@ -403,23 +444,23 @@ class ToneComponent extends Component {
                     return (
                         <div id="mainViewDiv">
                             <div id="dashboardAndInfoDiv">{this.dashboardRender()}</div>
-                            <div id="libraryDiv">{this.libraryRender()}</div>
+                            {this.libraryRender()}
                         </div>
                     )
                 }
                 case 'info': {
                     return (
                         <div id="mainViewDiv">
-                        <div id="dashboardAndInfoDiv"><Info /></div>
-                            <div id="libraryDiv">{this.libraryRender()}</div>
+                            <div id="dashboardAndInfoDiv"><Info /></div>
+                            {this.libraryRender()}
                         </div>
                     )
                 }
                 default: {
                     return (
                         <div id="mainViewDiv">
-                        <div id="dashboardAndInfoDiv">{this.dashboardRender()}</div>
-                            <div id="libraryDiv">{this.libraryRender()}</div>
+                            <div id="dashboardAndInfoDiv">{this.dashboardRender()}</div>
+                            {this.libraryRender()}
                         </div>
                     )
                 }
@@ -431,10 +472,13 @@ class ToneComponent extends Component {
 
         return (
             <div>
-                <div id="navContainer">
-                    <div id="navDashboard" onClick={() => this.handleRouter('dashboard')}><Typography variant="headline">Dashboard</Typography></div>
-                    <div id="navInfo" onClick={() => this.handleRouter('info')}><Typography variant="headline">Info</Typography></div>
-                </div>
+                <Card>
+                    <div id="navContainer">
+                        <div id="navDashboard" onClick={() => this.handleRouter('dashboard')}><Typography variant="body1">Dashboard</Typography></div>
+                        <div id="navInfo" onClick={() => this.handleRouter('info')}><Typography variant="body1">Info</Typography></div>
+                        {this.props.user.userName ? this.libraryUserYesRouterRender() : this.libraryUserNoRouterRender()}
+                    </div>
+                </Card>
 
                 {this.routerRender()}
             </div>
@@ -443,9 +487,5 @@ class ToneComponent extends Component {
 
 }//end ToneComponent
 
-const mapStateToProps = state => ({
-    description: state.description,
-    sounds: state.sounds
-});
 
 export default connect(mapStateToProps)(ToneComponent);

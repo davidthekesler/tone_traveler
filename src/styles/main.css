@@ -3,6 +3,7 @@
 #mainContainer {
     display: flex;
     flex-direction: column;
+    background: linear-gradient(45deg, #b2ebf2 30%, #FF8E53 90%);
 }
 
 /* Header */
@@ -33,23 +34,30 @@
 }
 
 #navContainer {
-
-    display: inline;
+    display: flex;
 }
 
 #navDashboard {
-    width: 50%;
-    height: 29px;
+    width: 33%;
+    padding: 5px;
     text-align: center;
     float: left;
 }
 
 #navInfo {
-    width: 50%;
-    height: 29px;
+    width: 33%;
+    padding: 5px;
     text-align: center;
     float: left;
 }
+
+#navLibrary {
+    width: 33%;
+    padding: 5px;
+    text-align: center;
+    float: left;
+}
+
 
 /*ToneComponent */
 
@@ -68,8 +76,8 @@
 }
 
 .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #ffff72; /* Blue */
+    border: 30px solid #b2ebf2; /* Light grey */
+    border-top: 30px solid #EA2; /* Blue */
     border-radius: 50%;
     width: 200px;
     height: 200px;
@@ -92,84 +100,111 @@
 /*Dashboard And Info Div*/
 
 #dashboardAndInfoDiv {
-    width: 90%
+    padding: 10px;
 }
 
 #libraryDiv {
-    width: 20%;
+    padding: 10px;
 }
     
 
 /*Dashboard*/
 
-#selectSoundContainer {
-    height: 80px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
 
-
-
-#selectSound {
+#dashboardContainer {
     padding: 10px;
-    display: flex;
-
-}
-
-#sliderBalanceContainer {
+    height: 250px;
+    width: 100%;
     position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
   }
 
-#sliderBalanceSubContainer {
-    width: 200px;
-    height: 50px;
+  #selectSound {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-#sliderBalanceLabel {
-    position: absolute;
-    margin-top: 15px;
-    margin-left: 10px;
+.userButtonDiv {
+    padding: 10px;
 }
 
-#sliderBalance {
+#sliderBinauralContainerBig {
+    width: 100%;
+    height: 70px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#sliderBinauralSpecificLabel {
+    margin-top: 120px;
+    text-align: center;
+}
+
+#trendContainer{
     position: absolute;
-    height: 50px;
-    margin-left: 98px;
+    margin-top: -20px; 
+    width: 100%;
 }
 
 #sliderBinauralContainer {
-    padding: 10px;
-    height: 250px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
-
-#sliderBalanceSubContainer {
+    position: absolute;
+    margin-left: 0 auto;
+    margin-top: -30px;
     width: 250px;
 }
 
 #sliderBinauralLabel {
     position: absolute;
-    margin-left: 90px;
-    margin-top: 135px;
-}
-
-sliderBinauralSpecificLabel {
-    position: absolute;
-    margin-right: 0px;
-    margin-top: 20px;
+    margin-left: 84px;
+    margin-top: 50px;
 }
 
 #sliderBinaural {
+    position: absolute;
     margin-left: auto;
-    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
+#sliderBalanceContainer {
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+  }
+
+
+#sliderBalance {
+    height: 40px;
+    width: 100px;
+    margin-top: 55px;
+    margin-left: 10px;
+    margin-right: 5px;
+  }
+
+
+  #playStopButton {
+    width: 100%;
+    height: 80px;
+    margin-top: 55px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+  
+  .playStopIcon {
+      transform: scale(4);
+  }
+
+
 #sliderVolumeContainer {
+    height: 55px;
+    margin-top: 55px;
     display: flex;
     flex-direction: row;
 }
@@ -182,14 +217,9 @@ sliderBinauralSpecificLabel {
   }
 
   #sliderVolumeIcon {
-    height: 40px;
+    height: 50px;
     width: 40px;
     margin-left: 5px;
     margin-right: 10px;
   }
 
-
-  
-.playStopIcon {
-    transform: scale(4);
-}

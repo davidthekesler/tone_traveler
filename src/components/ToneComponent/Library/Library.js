@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { USER_ACTIONS } from '../../../redux/actions/userActions';
 
 import Slider, { Range } from 'rc-slider';
-// import Slider from 'material-ui/Slider';
 import 'rc-slider/assets/index.css';
 import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
@@ -29,40 +28,29 @@ class Library extends Component {
 
 
   libraryRender = () => {
-    if (this.props.user.userName) {
-      
-      if (this.props.library.length === 0 ) {
-          return (
-              <div style={{padding: '10px'}}><Typography variant="body1">Your saved presets will appear here.</Typography></div>
-          )
-      } else {
-      let libraryArray = this.props.library.map((libraryItem) => {
-        return (
-          <div>
 
-            <Card style={{padding: '10px'}} key={libraryItem.id}>
-              <div>{libraryItem.descriptionString}</div>
-              <div>{libraryItem.title}, {libraryItem.binauralval} Hz</div>
-              <div>{libraryItem.description}</div>
-              <Delete onClick={() => this.props.handleDelete(libraryItem)} />
-              <Button variant="raised" onClick={() => this.props.handleLoad(libraryItem)}>Load</Button>
-            </Card>
-          </div>
+    if (this.props.library.length === 0) {
+      return (
+        <div style={{ padding: '10px' }}><Typography variant="body1">Your saved presets will appear here.</Typography></div>
+      )
+    } else {
+      let libraryArray = this.props.library.map((libraryItem) => {
+          return (
+            <div>
+
+              <Card style={{ padding: '10px', margin: '10px'}} key={libraryItem.id}>
+                <div>{libraryItem.descriptionString}</div>
+                <div>{libraryItem.title}, {libraryItem.binauralval} Hz</div>
+                <div>{libraryItem.description}</div>
+                <Delete onClick={() => this.props.handleDelete(libraryItem)} />
+                <Button variant="raised" onClick={() => this.props.handleLoad(libraryItem)}>Load</Button>
+              </Card>
+            </div>
         )
       });
-
-
       return (
-        
         <div>{libraryArray}</div>
-      )//end return
-    }
-    }
-
-
-    else {
-      return (
-              <div style={{padding: '10px'}}><Typography  variant="body1">Sign up to save your presets!</Typography></div>)
+      )
     }
   }
 
@@ -70,7 +58,10 @@ class Library extends Component {
 
     // Stringify Example <pre>{JSON.stringify(this.props.preset.allPresetsReducer)}</pre>
     return (
+        <Drawer open={this.props.drawerOpen} onClose={this.props.handleDrawerOpen}>
+
       <div>{this.libraryRender()}</div>
+      </Drawer>
     )
 
   }//end render
