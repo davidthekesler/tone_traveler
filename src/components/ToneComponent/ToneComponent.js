@@ -286,7 +286,7 @@ class ToneComponent extends Component {
             descriptionGeneralId: descriptionId
         }, () => {
             this.sendToLibrary();
-            this.setState ({
+            this.setState({
                 isPreset: !this.state.isPreset
             });
         }
@@ -335,7 +335,7 @@ class ToneComponent extends Component {
             descriptionString: libraryItem.descriptionstring,
             isPlaying: true,
             isPreset: true,
-            isChanged: !this.state.isChanged,
+            isChanged: false,
             drawerOpen: !this.state.drawerOpen
         }, () => {
             player.buffer = droneSamples.get(this.state.droneId);
@@ -384,7 +384,7 @@ class ToneComponent extends Component {
         })
     };
 
-    
+
 
     handleRouter = (routerString) => {
         this.setState({
@@ -482,7 +482,9 @@ class ToneComponent extends Component {
                 case 'dashboard': {
                     return (
                         <div id="mainViewDiv">
-                            <div id="dashboardAndInfoDiv">{this.dashboardRender()}</div>
+                            <div>
+                                {this.dashboardRender()}
+                            </div>
                             {this.libraryRender()}
                         </div>
                     )
@@ -490,7 +492,7 @@ class ToneComponent extends Component {
                 case 'info': {
                     return (
                         <div id="mainViewDiv">
-                            <div id="dashboardAndInfoDiv">
+                            <div>
                                 <Info
                                     isPlaying={this.state.isPlaying}
                                     handleStop={this.handleStop}
@@ -504,7 +506,9 @@ class ToneComponent extends Component {
                 default: {
                     return (
                         <div id="mainViewDiv">
-                            <div id="dashboardAndInfoDiv">{this.dashboardRender()}</div>
+                            <div>
+                                {this.dashboardRender()}
+                            </div>
                             {this.libraryRender()}
                         </div>
                     )

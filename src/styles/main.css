@@ -9,7 +9,6 @@
 /* Header */
 
 #header {
-    background: linear-gradient(45deg, #b2ebf2 30%, #FF8E53 90%);
     height: 100px;
     width: 100%;
     text-align: center;
@@ -74,12 +73,7 @@
 
 /*ToneComponent */
 
-#mainViewDiv {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    float: left;
-}
+
 
 #spinnerDiv {
     display: flex;
@@ -111,11 +105,6 @@
 
 } */
 
-/*Dashboard And Info Div*/
-
-#dashboardAndInfoDiv {
-    padding: 10px;
-}
 
 #libraryDiv {
     padding: 10px;
@@ -124,9 +113,9 @@
 
 /*Dashboard*/
 
-
 #dashboardContainer {
     padding: 10px;
+    margin: 10px;
     height: 250px;
     width: 100%;
     position: relative;
@@ -162,6 +151,7 @@
 }
 
 #sliderBinauralSpecificLabel {
+    position: absolute;
     margin-top: 120px;
     text-align: center;
 }
@@ -169,7 +159,7 @@
 #trendContainer{
     position: absolute;
     margin-top: -20px; 
-    width: 100%;
+    width: 800px;
 }
 
 #sliderBinauralContainer {

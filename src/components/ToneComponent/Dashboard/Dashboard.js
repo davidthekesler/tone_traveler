@@ -42,7 +42,9 @@ class Dashboard extends Component {
     if (this.props.isChanged && !this.props.isPreset) {
       return (
         <div class="notesButtonDiv">
+          <div>
           <Button color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleSaveToLibrary}>Save To Library</Button>
+          </div>
         </div>
       )
     } else if (this.props.isChanged && this.props.isPreset) {
@@ -102,7 +104,7 @@ class Dashboard extends Component {
               <Typography variant="caption">
                 Too little - {this.props.activeSystemDescription.toolittle}
               </Typography>
-              
+
               <Typography variant="headline">
                 Your Notes
             </Typography>
@@ -124,7 +126,6 @@ class Dashboard extends Component {
     )
   }
 
-
   render() {
 
     // Stringify Example <pre>{JSON.stringify(this.props.preset.allPresetsReducer)}</pre>
@@ -137,10 +138,10 @@ class Dashboard extends Component {
 
     if (this.props.isLoaded) {
       return (
+        <Grid container spacing={8} justify="center" alignItems="center" direction="row">
+          <Grid item xs={6}>
         <Card>
-          <div id="#dashboardContainer">
             <Grid container spacing={24}>
-
               <Grid item xs={4}>
                 <div class="notesButtonDiv">
                   {this.props.user.userName ? this.notesDialog() : null}
@@ -256,8 +257,11 @@ class Dashboard extends Component {
                 </div>
               </Grid>
             </Grid>
-          </div>
         </Card>
+
+                </Grid>
+          </Grid>
+     
 
       )
     } else {

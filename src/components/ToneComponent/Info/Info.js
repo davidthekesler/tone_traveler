@@ -25,8 +25,8 @@ class Info extends Component {
 
 
     return (
+              <div id="#dashboardContainer">
       <Card>
-        <div id="#dashboardContainer">
         <div id="infoPagePlayStop">
           <div id="playStopButton">
             {this.props.isPlaying ? <Stop color="secondary" style={{ fontSize: 50 }} onClick={this.props.handleStop} /> : <PlayCircleFilled color="primary" style={{ fontSize: 50 }} onClick={this.props.handleStart} />}
@@ -66,9 +66,8 @@ class Info extends Component {
 
 
           </Typography>
+          </Card>
         </div>
-
-      </Card>
     );
   }
 }
