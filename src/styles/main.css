@@ -58,6 +58,19 @@
     float: left;
 }
 
+/*LogInModal */
+
+
+#loginDiv {
+    padding: 10px;
+}
+
+/*RegisterModal */
+
+#registerDiv {
+    padding: 10px;
+}
+
 
 /*ToneComponent */
 
@@ -76,6 +89,7 @@
 }
 
 .loader {
+    padding: 20px;
     border: 30px solid #b2ebf2; /* Light grey */
     border-top: 30px solid #EA2; /* Blue */
     border-radius: 50%;
@@ -121,16 +135,22 @@
     justify-content: center;
   }
 
+#infoPagePlayStop {
+    margin-left: 0 auto;
+    margin-bottom: 20px;
+ }
   #selectSound {
     width: 100%;
+    height: 50px;
     position: relative;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.userButtonDiv {
+.notesButtonDiv {
     padding: 10px;
+    justify-content: right;
 }
 
 #sliderBinauralContainerBig {
@@ -197,9 +217,6 @@
     justify-content: center;
 }
   
-  .playStopIcon {
-      transform: scale(4);
-  }
 
 
 #sliderVolumeContainer {
@@ -223,3 +240,8 @@
     margin-right: 10px;
   }
 
+  /* Notes Dialog */
+
+ #notesDialogDiv {
+     padding: 10px;
+ }

@@ -72,7 +72,7 @@ router.delete('/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
     //updates book entry in sql book table
-    console.log('in PUT route', req.body);
+    console.log('in PUT route', req.body.descriptionString);
 
     console.log('is authenticated?', req.isAuthenticated());
     console.log('user', req.user);

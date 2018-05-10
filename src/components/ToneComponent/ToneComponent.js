@@ -77,34 +77,43 @@ class ToneComponent extends Component {
             droneId: 1,
             descriptionString: '',
             descriptionGeneralId: 1,
-            activeSystemDescription: { title: 'Delta' },
+            activeSystemDescription: {
+                title:
+                    'Delta',
+                description: 'Deep Sleep, Healing',
+                toomuch: 'Brain injuries, learning problems, inability to think, severe ADHD',
+                toolittle: 'Inability to rejuvenate body, inability to revitalize the brain, poor sleep',
+                optimal: 'Immune system, natural healing, restorative deep sleep'
+            },
             soundsArray: [],
             isLoaded: false,
             isPlaying: false,
             isPreset: false,
             isChanged: false,
-            drawerOpen: false
+            drawerOpen: false,
+            dialogOpen: false
         }//end state
     }//end constructor
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.description != this.props.description) {
+            console.log('got to Set state in componentWillReceiveProps!');
+            this.setState({
+                activeSystemDescription: this.props.description.allGeneralDescriptionsReducer[0]
+            })
+        }
+    }
 
     componentDidMount() {
 
-        // this.props.dispatch({
-        //     type: 'GET_PRESETS'
-        // });
-
-        this.props.dispatch({ 
-            type: USER_ACTIONS.FETCH_USER 
+        this.props.dispatch({
+            type: USER_ACTIONS.FETCH_USER
         });
 
         this.props.dispatch({
             type: 'GET_DESCRIPTIONS_GENERAL'
         });
 
-        // this.setState({
-        //     activeSystemDescription: this.props.description.allGeneralDescriptionsReducer[0]
-        // });
 
         axios.get('/api/sounds')
             .then((response) => {
@@ -277,6 +286,9 @@ class ToneComponent extends Component {
             descriptionGeneralId: descriptionId
         }, () => {
             this.sendToLibrary();
+            this.setState ({
+                isPreset: !this.state.isPreset
+            });
         }
         );
     }
@@ -292,6 +304,7 @@ class ToneComponent extends Component {
     }
 
     handleSaveChanges = () => {
+        console.log('made it to handleSaveChanges');
         this.props.dispatch({
             type: 'PUT_PRESET',
             payload: this.state
@@ -343,14 +356,35 @@ class ToneComponent extends Component {
         })//end setState callback
     }
 
+    handleNotesClose = () => {
+        this.setState({
+            dialogOpen: false,
+        })
+    }
+
+    handleNotesOpen = () => {
+        this.setState({
+            dialogOpen: true
+        })
+    }
+
+    handleInputChangeFor = propertyName => (event) => {
+        this.setState({
+            [propertyName]: event.target.value,
+            isChanged: true
+        });
+    }
+
     handleStartNew = () => {
         this.setState({
-            isPreset: false
+            isPreset: false,
+            descriptionString: ''
         }, () => {
-            console.log('got here');
-
+            //callback here
         })
     };
+
+    
 
     handleRouter = (routerString) => {
         this.setState({
@@ -370,6 +404,9 @@ class ToneComponent extends Component {
                 handleSaveToLibrary={this.handleSaveToLibrary}
                 handleSaveChanges={this.handleSaveChanges}
                 handleStartNew={this.handleStartNew}
+                handleNotesClose={this.handleNotesClose}
+                handleNotesOpen={this.handleNotesOpen}
+                handleInputChangeFor={this.handleInputChangeFor}
 
                 synthFreq={this.state.synthFreq}
                 binauralVal={this.state.binauralVal}
@@ -386,6 +423,7 @@ class ToneComponent extends Component {
                 isPlaying={this.state.isPlaying}
                 isPreset={this.state.isPreset}
                 isChanged={this.state.isChanged}
+                dialogOpen={this.state.dialogOpen}
             />
         )
     }
@@ -395,6 +433,7 @@ class ToneComponent extends Component {
         return (
             <Library handleDelete={this.handleDelete}
                 handleUpdate={this.handleUpdate}
+                handleStartNew={this.handleStartNew}
                 handleLoad={this.handleLoad}
                 handleDrawerOpen={this.handleDrawerOpen}
                 drawerOpen={this.state.drawerOpen}
@@ -404,20 +443,20 @@ class ToneComponent extends Component {
 
     libraryUserYesRouterRender = () => {
 
-            return (
-                <div id="navLibrary" onClick={this.handleDrawerOpen}>
-                    <Typography variant="body1">Library</Typography>
-                </div>
-            )
-        }
+        return (
+            <div id="navLibrary" onClick={this.handleDrawerOpen}>
+                <Typography variant="body1">Library</Typography>
+            </div>
+        )
+    }
 
     libraryUserNoRouterRender = () => {
-            return (
-                <div id="navLibrary">
-                    <Typography variant="caption">Sign up or log in to save presets!</Typography>
-                </div>
-            )
-        }
+        return (
+            <div id="navLibrary">
+                <Typography variant="caption">Sign up or log in to save presets!</Typography>
+            </div>
+        )
+    }
 
 
     handleDrawerOpen = () => {
@@ -451,7 +490,13 @@ class ToneComponent extends Component {
                 case 'info': {
                     return (
                         <div id="mainViewDiv">
-                            <div id="dashboardAndInfoDiv"><Info /></div>
+                            <div id="dashboardAndInfoDiv">
+                                <Info
+                                    isPlaying={this.state.isPlaying}
+                                    handleStop={this.handleStop}
+                                    handleStart={this.handleStart}
+                                />
+                            </div>
                             {this.libraryRender()}
                         </div>
                     )

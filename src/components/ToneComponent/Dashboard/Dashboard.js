@@ -9,6 +9,8 @@ import Button from 'material-ui/Button';
 import Select from 'material-ui/Select';
 import Card from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
+import Dialog, { DialogTitle, DialogActions } from 'material-ui/Dialog';
+import TextField from 'material-ui/TextField'
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Input, { InputLabel } from 'material-ui/Input';
 import { FormControl, FormHelperText } from 'material-ui/Form';
@@ -25,6 +27,8 @@ import '../../../styles/main.css';
 
 const mapStateToProps = state => ({
   user: state.user,
+  description: state.description
+
 });
 
 class Dashboard extends Component {
@@ -37,32 +41,87 @@ class Dashboard extends Component {
   saveButton = () => {
     if (this.props.isChanged && !this.props.isPreset) {
       return (
-        <Button color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleSaveToLibrary}>Save To Library</Button>
+        <div class="notesButtonDiv">
+          <Button color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleSaveToLibrary}>Save To Library</Button>
+        </div>
       )
     } else if (this.props.isChanged && this.props.isPreset) {
       return (
         <div>
-          <Button color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleSaveChanges}>Save Changes</Button>
+          <div class="notesButtonDiv">
+            <Button color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleSaveChanges}>Save Changes</Button>
+          </div>
+          <div class="notesButtonDiv">
+            <Button style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleStartNew}>Start New</Button>
+          </div>
+        </div>
+      )
+    } else if (!this.props.isChanged && this.props.isPreset) {
+      return (
+        <div>
+          <div class="notesButtonDiv">
+            <Button disabled color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleSaveChanges}>Save Changes</Button>
+          </div>
+          <div class="notesButtonDiv">
+            <Button style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleStartNew}>Start New</Button>
+          </div>
         </div>
       )
     } else if (!this.props.isChanged && !this.props.isPreset) {
       return (
-        <Button disabled color="secondary" style={{ fontSize: 10 }} variant="raised">Save To Library</Button>
+        <div class="notesButtonDiv">
+          <Button disabled color="secondary" style={{ fontSize: 10 }} variant="raised">Save To Library</Button>
+        </div>
       )
-    } else if (!this.props.isChanged && this.props.isPreset) {
-      return (
-        <Button color="secondary" style={{ fontSize: 10 }} variant="raised">Save Changes</Button>
-      )
+
     }
   }
 
-  startNewButton = () => {
+  notesDialog = () => {
 
-    if (this.props.isChanged && this.props.isPreset) {
-      return (
-        <Button variant="raised" onClick={this.props.handleStartNew}>Start New</Button>
-      )
-    }
+    return (
+      <div>
+        <Button color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleNotesOpen}>Notes</Button>
+        <Dialog
+          open={this.props.dialogOpen}
+        >
+          <Card>
+            <div id="notesDialogDiv">
+              <Typography variant="display1">
+                {this.props.activeSystemDescription.title}
+              </Typography>
+              <Typography variant="headline">
+                {this.props.activeSystemDescription.description}
+              </Typography>
+              <Typography variant="caption">
+                Optimal amounts - {this.props.activeSystemDescription.optimal}
+              </Typography>
+              <Typography variant="caption">
+                Too much - {this.props.activeSystemDescription.toomuch}
+              </Typography>
+              <Typography variant="caption">
+                Too little - {this.props.activeSystemDescription.toolittle}
+              </Typography>
+              
+              <Typography variant="headline">
+                Your Notes
+            </Typography>
+              <TextField
+                fullWidth
+                multiline
+                rowsMax="4"
+                margin="normal"
+                value={this.props.descriptionString}
+                onChange={this.props.handleInputChangeFor('descriptionString')}
+              />
+              <DialogActions>
+                <Button style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleNotesClose}>OK</Button>
+              </DialogActions>
+            </div>
+          </Card>
+        </Dialog>
+      </div >
+    )
   }
 
 
@@ -83,8 +142,8 @@ class Dashboard extends Component {
             <Grid container spacing={24}>
 
               <Grid item xs={4}>
-                <div class="userButtonDiv">
-                  {this.props.user.userName ? this.startNewButton() : null}
+                <div class="notesButtonDiv">
+                  {this.props.user.userName ? this.notesDialog() : null}
                 </div>
               </Grid>
 
@@ -118,17 +177,17 @@ class Dashboard extends Component {
                     </Typography>
                   </div>
 
-                  <div id="trendContainer">{this.props.isPlaying ? <Trend
+                  <div id="trendContainer"><Trend
                     smooth
                     autoDraw
                     autoDrawDuration={3000}
                     autoDrawEasing="ease-out"
-                    data={[this.props.binauralVal, 2, this.props.binauralVal - 2, this.props.binauralVal - 12, this.props.droneId * 5, this.props.binauralVal + 5, 5, 0, this.props.binauralVal, 1, 8, 2, 9, 0]}
+                    data={[this.props.binauralVal, 2, this.props.binauralVal - 2, this.props.binauralVal - 12, this.props.droneId + 5, this.props.binauralVal + 5, this.props.droneId + 10, 0, this.props.binauralVal, 1, 8, this.props.binauralVal + 2, 9, 0]}
                     gradient={['#b2ebf2', '#FF8E53']}
                     radius={10.2}
                     strokeWidth={5}
                     strokeLinecap={'butt'}
-                  /> : null}
+                  />
                   </div>
 
 
@@ -174,7 +233,7 @@ class Dashboard extends Component {
 
               <Grid item xs={4}>
                 <div id="playStopButton">
-                  {this.props.isPlaying ? <Stop color="secondary" style={{ fontSize: 50 }} onClick={this.props.handleStop} /> : <PlayCircleFilled color="primary" style={{ fontSize: 50 }} onClick={this.props.handleStart} />}
+                  {this.props.isPlaying ? <Stop color="secondary" style={{ fontSize: 90 }} onClick={this.props.handleStop} /> : <PlayCircleFilled color="primary" style={{ fontSize: 70 }} onClick={this.props.handleStart} />}
                 </div>
               </Grid>
 
