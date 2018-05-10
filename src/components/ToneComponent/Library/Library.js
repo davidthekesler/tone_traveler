@@ -8,11 +8,14 @@ import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
+import IconButton from 'material-ui/IconButton';
+
 import moment from 'moment';
 
 import Drawer from 'material-ui/Drawer';
 import { Delete } from 'material-ui-icons';
 import { PlayCircleFilled, Stop } from 'material-ui-icons';
+
 
 import ToneComponent from '../../../components/ToneComponent/ToneComponent';
 
@@ -49,7 +52,7 @@ class Library extends Component {
                 <div>{libraryItem.title}, {libraryItem.binauralval} Hz</div>
                 <div>{libraryItem.description}</div>
                 <div>Created on: {moment(libraryItem.createdts).format("MMM Do YY")}</div>
-                <Delete  style={{ fontSize: 15 }} onClick={() => this.props.handleDelete(libraryItem)} />
+                <IconButton><Delete  style={{ fontSize: 15 }} onClick={() => this.props.handleDelete(libraryItem)} /></IconButton>
                 <Button size="small" color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={() => this.props.handleLoad(libraryItem)}>Load</Button>
               </Card>
             </div>

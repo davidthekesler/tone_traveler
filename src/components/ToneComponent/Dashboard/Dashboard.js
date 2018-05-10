@@ -5,6 +5,7 @@ import { USER_ACTIONS } from '../../../redux/actions/userActions';
 import Slider, { Range } from 'rc-slider';
 // import Slider from 'material-ui/Slider';
 import 'rc-slider/assets/index.css';
+import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
 import Select from 'material-ui/Select';
 import Card from 'material-ui/Card';
@@ -139,7 +140,7 @@ class Dashboard extends Component {
     if (this.props.isLoaded) {
       return (
         <Grid container spacing={8} justify="center" alignItems="center" direction="row">
-          <Grid item xs={6}>
+          <Grid item xs={8}>
         <Card>
             <Grid container spacing={24}>
               <Grid item xs={4}>
@@ -183,7 +184,7 @@ class Dashboard extends Component {
                     autoDraw
                     autoDrawDuration={3000}
                     autoDrawEasing="ease-out"
-                    data={[this.props.binauralVal, 2, this.props.binauralVal - 2, this.props.binauralVal - 12, this.props.droneId + 5, this.props.binauralVal + 5, this.props.droneId + 10, 0, this.props.binauralVal, 1, 8, this.props.binauralVal + 2, 9, 0]}
+                    data={[this.props.binauralVal - 2, this.props.binauralVal + 5 , this.props.binauralVal + 12, this.props.binauralVal + 5, this.props.droneId - 12, this.props.binauralVal + 5, this.props.droneId + 10, 0, this.props.binauralVal, 1, 8, this.props.binauralVal + 2, 9, 0]}
                     gradient={['#b2ebf2', '#FF8E53']}
                     radius={10.2}
                     strokeWidth={5}
@@ -234,7 +235,8 @@ class Dashboard extends Component {
 
               <Grid item xs={4}>
                 <div id="playStopButton">
-                  {this.props.isPlaying ? <Stop color="secondary" style={{ fontSize: 90 }} onClick={this.props.handleStop} /> : <PlayCircleFilled color="primary" style={{ fontSize: 70 }} onClick={this.props.handleStart} />}
+                
+                  {this.props.isPlaying ? <IconButton><Stop color="secondary" style={{ fontSize: 90 }} onClick={this.props.handleStop}/> </IconButton> : <IconButton><PlayCircleFilled color="primary" style={{ fontSize: 70 }} onClick={this.props.handleStart} /></IconButton> }
                 </div>
               </Grid>
 

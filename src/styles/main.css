@@ -158,8 +158,8 @@
 
 #trendContainer{
     position: absolute;
-    margin-top: -20px; 
-    width: 800px;
+    margin-top: -40px; 
+    width: 100%;
 }
 
 #sliderBinauralContainer {
