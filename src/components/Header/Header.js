@@ -5,7 +5,6 @@ import { triggerLogout } from '../../redux/actions/loginActions';
 import LoginModal from './LoginModal/LoginModal';
 import RegisterModal from './RegisterModal/RegisterModal';
 
-import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import AppBar from 'material-ui/AppBar';

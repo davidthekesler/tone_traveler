@@ -71,9 +71,9 @@ class ToneComponent extends Component {
             binauralVal: 2.2,
             synthFreq: 130.81,
             synthVolume: -45,
-            playerVolume: -20,
-            balance: -20,
-            masterVolume: -5,
+            playerVolume: -5,
+            balance: -5,
+            masterVolume: 0,
             droneId: 1,
             descriptionString: '',
             descriptionGeneralId: 1,
@@ -227,16 +227,39 @@ class ToneComponent extends Component {
     }
 
     handleBalance = (value) => {
-        let synthVolume = (-60) - (5 + value);
+        let valueInput = value;
+        let synthVolumeToAdjust = (-25 - (valueInput));
+        let synthVolume = synthVolumeToAdjust - 25;
+
+        if (value > -5) {
+            synthVolume = (synthVolume - ((value + 5) * 5));
+            valueInput = (valueInput - (value + 5));
+            console.log('in valueInput adjust over 5', valueInput);
+        }
+
+        if (value <= -5 && value > -10) {
+            valueInput = (valueInput - (value + 5));
+            console.log('in valueInput adjust between 5 and 10', valueInput);
+        }
+
+        if (value <= -10) {
+            valueInput = ((valueInput + ((value + 10) * 2) + 5));
+            console.log('in valueInput adjust under 20', valueInput);
+        }
+
+        // if (valueInput >5
+
+        panVol1.volume.rampTo(synthVolume);
+        panVol2.volume.rampTo(synthVolume);
+        playerVol.volume.rampTo(valueInput);
+
         this.setState({
             balance: value,
             synthVolume: synthVolume,
-            playerVolume: value,
+            playerVolume: valueInput,
             isChanged: true
         });
-        panVol1.volume.rampTo(synthVolume);
-        panVol2.volume.rampTo(synthVolume);
-        playerVol.volume.rampTo(value);
+
     }//end handlebalance
 
     handleDrone = (event) => {

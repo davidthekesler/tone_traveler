@@ -126,7 +126,7 @@
 
 #infoPagePlayStop {
     margin-left: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 2px;
  }
   #selectSound {
     width: 100%;
@@ -190,7 +190,7 @@
 
 #sliderBalance {
     height: 40px;
-    width: 100px;
+    width: 200px;
     margin-top: 55px;
     margin-left: 10px;
     margin-right: 5px;
@@ -218,7 +218,7 @@
   
   #sliderVolume {
     height: 40px;
-    width: 100px;
+    width: 200px;
     margin-left: 10px;
     margin-right: 5px;
   }

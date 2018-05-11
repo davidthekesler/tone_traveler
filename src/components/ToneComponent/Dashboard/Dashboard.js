@@ -10,7 +10,7 @@ import Button from 'material-ui/Button';
 import Select from 'material-ui/Select';
 import Card from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
-import Dialog, { DialogTitle, DialogActions } from 'material-ui/Dialog';
+import Dialog, { DialogActions } from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField'
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Input, { InputLabel } from 'material-ui/Input';
@@ -19,7 +19,7 @@ import Knob from 'react-canvas-knob';
 import Grid from 'material-ui/Grid';
 import Trend from 'react-trend';
 // import Button from 'material-ui/Button';
-import { PlayCircleFilled, Stop, VolumeUp } from 'material-ui-icons';
+import { PlayCircleFilled, PauseCircleFilled , Stop, VolumeUp } from 'material-ui-icons';
 
 import ToneComponent from '../../../components/ToneComponent/ToneComponent';
 
@@ -198,6 +198,7 @@ class Dashboard extends Component {
                     <div id="sliderBinauralLabel">
                       <Typography variant="display1">{this.props.activeSystemDescription.title}</Typography>
                     </div>
+                    
                     <div id="sliderBinaural">
                       <Knob
                         min={1}
@@ -220,8 +221,8 @@ class Dashboard extends Component {
               <Grid item xs={4}>
                 <div id="sliderBalanceContainer">
                   <div id="sliderBalance"><Slider
-                    min={-60}
-                    max={-5}
+                    min={-25}
+                    max={0}
                     step={1}
                     value={this.props.balance}
                     vertical={false}
@@ -234,9 +235,8 @@ class Dashboard extends Component {
               </Grid>
 
               <Grid item xs={4}>
-                <div id="playStopButton">
-                
-                  {this.props.isPlaying ? <IconButton><Stop color="secondary" style={{ fontSize: 90 }} onClick={this.props.handleStop}/> </IconButton> : <IconButton><PlayCircleFilled color="primary" style={{ fontSize: 70 }} onClick={this.props.handleStart} /></IconButton> }
+                <div id="playStopButton">              
+                  {this.props.isPlaying ? <IconButton><PauseCircleFilled color="primary" style={{ fontSize: 70 }} onClick={this.props.handleStop}/> </IconButton> : <IconButton><PlayCircleFilled color="primary" style={{ fontSize: 70 }} onClick={this.props.handleStart} /></IconButton> }
                 </div>
               </Grid>
 

@@ -5,6 +5,7 @@ import LoginModal from '../LoginModal/LoginModal';
 import Dialog, { DialogTitle, DialogActions } from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
+import Typography from 'material-ui/Typography';
 // import { withRouter } from 'react-router';
 
 const mapStateToProps = state => ({
@@ -83,15 +84,15 @@ class RegisterModal extends Component {
   renderAlert() {
     if (this.state.message !== '') {
       return (
-        <p
-          className="alert"
-          role="alert"
-        >
+      <Typography variant="display2"
+      >
           {this.state.message}
-        </p>
+        </Typography>
       );
     }
-    return (<p>Register</p>);
+    return (
+      <Typography variant="display2"
+      >Register</Typography>);
   }
 
   render() {

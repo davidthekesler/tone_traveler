@@ -14,7 +14,6 @@ import moment from 'moment';
 
 import Drawer from 'material-ui/Drawer';
 import { Delete } from 'material-ui-icons';
-import { PlayCircleFilled, Stop } from 'material-ui-icons';
 
 
 import ToneComponent from '../../../components/ToneComponent/ToneComponent';

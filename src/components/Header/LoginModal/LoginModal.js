@@ -74,14 +74,14 @@ class LoginModal extends Component {
   renderAlert() {
     if (this.props.login.message !== '') {
       return (
-        <Typography variant="display 2"
+        <Typography variant="display2"
         >
           {this.props.login.message}
         </Typography>
       );
     }
     return (
-      <Typography variant="display 2"
+      <Typography variant="display2"
       >Log in
         </Typography>
     );
