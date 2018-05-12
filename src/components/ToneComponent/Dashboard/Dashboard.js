@@ -20,6 +20,7 @@ import Trend from 'react-trend';
 import { PlayCircleFilled, PauseCircleFilled, Stop, VolumeUp } from 'material-ui-icons';
 import ToneComponent from '../../../components/ToneComponent/ToneComponent';
 
+
 import '../../../styles/main.css';
 
 
@@ -118,6 +119,8 @@ class Dashboard extends Component {
 
   render() {
 
+
+
     // Stringify Example <pre>{JSON.stringify(this.props.preset.allPresetsReducer)}</pre>
 
     let soundMenu = this.props.soundsArray.map((sound) => {
@@ -173,8 +176,7 @@ class Dashboard extends Component {
                         autoDraw
                         autoDrawDuration={50}
                         autoDrawEasing="ease-out"
-                        data={[this.props.binauralVal + 2, this.props.binauralVal + 5, this.props.binauralVal + 12, this.props.binauralVal + 5, this.props.droneId - 12, this.props.binauralVal + 5, this.props.droneId + 10, 0, this.props.binauralVal, 1, 8, this.props.binauralVal + 2, 9, 0]}
-                        gradient={['#b2ebf2', '#FF8E53']}
+                        data={[this.props.binauralVal + 2, this.props.binauralVal + 5, this.props.binauralVal + 12, this.props.balance + 30, this.props.droneId - 12, this.props.binauralVal + 5, this.props.droneId + 10, 0, this.props.binauralVal, 1, this.props.balance + 29, this.props.binauralVal + 2, 9, 0]} gradient={['#b2ebf2', '#FF8E53']}
                         radius={10.2}
                         strokeWidth={5}
                         strokeLinecap={'butt'}
