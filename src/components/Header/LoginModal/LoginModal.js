@@ -74,14 +74,14 @@ class LoginModal extends Component {
   renderAlert() {
     if (this.props.login.message !== '') {
       return (
-        <Typography variant="display2"
+        <Typography variant="display1"
         >
           {this.props.login.message}
         </Typography>
       );
     }
     return (
-      <Typography variant="display2"
+      <Typography variant="display1"
       >Log in
         </Typography>
     );
@@ -93,7 +93,7 @@ class LoginModal extends Component {
     return (
       <div>
         <Button onClick={this.handleOpen}>Log in</Button>
-        <Dialog
+        <Dialog style={{ padding: '10px', margin: '10px'}}
           open={this.state.open}
         >
           <DialogTitle>{this.renderAlert()}</DialogTitle>

@@ -35,32 +35,30 @@ class Library extends Component {
     if (this.props.library.length === 0) {
       return (
         <div>
-        <div style={{ padding: '10px' }}><Typography variant="body1">Your saved presets will appear here.</Typography></div>
-        {this.props.handleStartNew()}
+          <div style={{ padding: '10px' }}><Typography variant="body1">Your saved presets will appear here.</Typography></div>
+          {this.props.handleStartNew()}
         </div>
       )
     } else {
 
-      
-      let libraryArray = this.props.library.map((libraryItem) => {
-          return (
-            <div>
 
-              <Card style={{ padding: '10px', margin: '10px'}} key={libraryItem.id}>
-                <div>{libraryItem.descriptionstring}</div>
-                <div>{libraryItem.title}, {libraryItem.binauralval} Hz</div>
-                <div>{libraryItem.description}</div>
-                <div>Created on: {moment(libraryItem.createdts).format("MMM Do YY")}</div>
-                <IconButton><Delete  style={{ fontSize: 15 }} onClick={() => this.props.handleDelete(libraryItem)} /></IconButton>
-                <Button size="small" color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={() => this.props.handleLoad(libraryItem)}>Load</Button>
-              </Card>
+      let libraryArray = this.props.library.map((libraryItem) => {
+        return (
+          <Card style={{ padding: '10px', margin: '10px' }} key={libraryItem.id}>
+            <div id="libraryCard">
+              <div>{moment(libraryItem.createdts).format("MMM Do YYYY")}, {libraryItem.title} - {libraryItem.binauralval} Hz</div>
+              <div>{libraryItem.descriptionstring}</div>
+              <IconButton><Delete style={{ fontSize: 15 }} onClick={() => this.props.handleDelete(libraryItem)} /></IconButton>
+              <Button size="small" color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={() => this.props.handleLoad(libraryItem)}>Load</Button>
             </div>
+          </Card>
+
         )
       });
       return (
         <div>
-        <div style={{ padding: '10px' }}><Typography variant="body1">Your saved presets:</Typography></div>
-        <div>{libraryArray}</div>
+          <div style={{ padding: '10px' }}><Typography variant="body1">Your saved presets:</Typography></div>
+          <div>{libraryArray}</div>
         </div>
       )
     }
@@ -70,9 +68,9 @@ class Library extends Component {
 
     // Stringify Example <pre>{JSON.stringify(this.props.preset.allPresetsReducer)}</pre>
     return (
-        <Drawer open={this.props.drawerOpen} onClose={this.props.handleDrawerOpen}>
+      <Drawer open={this.props.drawerOpen} onClose={this.props.handleDrawerOpen}>
 
-      <div>{this.libraryRender()}</div>
+        <div>{this.libraryRender()}</div>
       </Drawer>
     )
 

@@ -150,15 +150,11 @@ class ToneComponent extends Component {
     }//end componentDidMount
 
     componentWillReceiveProps(nextProps) {
-        // if (nextProps.sounds[2].id) {
 
-        //     console.log('!!!!!!!!!!!', this.props.sounds);
-
-        // }
     }
 
-    handleStart = () => {
 
+    handleStart = () => {
         let freq1 = this.state.synthFreq - (this.state.binauralVal / 2);
         let freq2 = this.state.synthFreq + (this.state.binauralVal / 2);
         synth1.triggerAttack(freq1);
@@ -316,6 +312,8 @@ class ToneComponent extends Component {
         );
     }
 
+    
+
     sendToLibrary = () => {
 
         this.props.dispatch({
@@ -359,7 +357,7 @@ class ToneComponent extends Component {
             isPlaying: true,
             isPreset: true,
             isChanged: false,
-            drawerOpen: !this.state.drawerOpen
+            drawerOpen: false
         }, () => {
             player.buffer = droneSamples.get(this.state.droneId);
             let freq1 = this.state.synthFreq - (this.state.binauralVal / 2);

@@ -84,14 +84,14 @@ class RegisterModal extends Component {
   renderAlert() {
     if (this.state.message !== '') {
       return (
-      <Typography variant="display2"
+      <Typography variant="display1"
       >
           {this.state.message}
         </Typography>
       );
     }
     return (
-      <Typography variant="display2"
+      <Typography variant="display1"
       >Register</Typography>);
   }
 
@@ -106,7 +106,7 @@ class RegisterModal extends Component {
     return (
       <div>
         <Button variant="raised" onClick={this.handleOpen}>Sign Up</Button>
-        <Dialog
+        <Dialog style={{ padding: '10px', margin: '10px'}}
           open={this.state.open}
         >
           <DialogTitle>{this.renderAlert()}</DialogTitle>

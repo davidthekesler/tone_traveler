@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { USER_ACTIONS } from '../../../redux/actions/userActions';
 
 import Slider, { Range } from 'rc-slider';
-// import Slider from 'material-ui/Slider';
 import 'rc-slider/assets/index.css';
 import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
@@ -18,9 +17,7 @@ import { FormControl, FormHelperText } from 'material-ui/Form';
 import Knob from 'react-canvas-knob';
 import Grid from 'material-ui/Grid';
 import Trend from 'react-trend';
-// import Button from 'material-ui/Button';
-import { PlayCircleFilled, PauseCircleFilled , Stop, VolumeUp } from 'material-ui-icons';
-
+import { PlayCircleFilled, PauseCircleFilled, Stop, VolumeUp } from 'material-ui-icons';
 import ToneComponent from '../../../components/ToneComponent/ToneComponent';
 
 import '../../../styles/main.css';
@@ -43,9 +40,7 @@ class Dashboard extends Component {
     if (this.props.isChanged && !this.props.isPreset) {
       return (
         <div class="notesButtonDiv">
-          <div>
           <Button color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleSaveToLibrary}>Save To Library</Button>
-          </div>
         </div>
       )
     } else if (this.props.isChanged && this.props.isPreset) {
@@ -53,8 +48,6 @@ class Dashboard extends Component {
         <div>
           <div class="notesButtonDiv">
             <Button color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleSaveChanges}>Save Changes</Button>
-          </div>
-          <div class="notesButtonDiv">
             <Button style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleStartNew}>Start New</Button>
           </div>
         </div>
@@ -64,8 +57,6 @@ class Dashboard extends Component {
         <div>
           <div class="notesButtonDiv">
             <Button disabled color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleSaveChanges}>Save Changes</Button>
-          </div>
-          <div class="notesButtonDiv">
             <Button style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleStartNew}>Start New</Button>
           </div>
         </div>
@@ -91,11 +82,9 @@ class Dashboard extends Component {
           <Card>
             <div id="notesDialogDiv">
               <Typography variant="display1">
-                {this.props.activeSystemDescription.title}
+                {this.props.activeSystemDescription.title} - {this.props.binauralVal} Hz
               </Typography>
-              <Typography variant="headline">
-                {this.props.activeSystemDescription.description}
-              </Typography>
+              <br />
               <Typography variant="caption">
                 Optimal amounts - {this.props.activeSystemDescription.optimal}
               </Typography>
@@ -105,7 +94,7 @@ class Dashboard extends Component {
               <Typography variant="caption">
                 Too little - {this.props.activeSystemDescription.toolittle}
               </Typography>
-
+              <br />
               <Typography variant="headline">
                 Your Notes
             </Typography>
@@ -140,130 +129,129 @@ class Dashboard extends Component {
     if (this.props.isLoaded) {
       return (
         <Grid container spacing={8} justify="center" alignItems="center" direction="row">
-          <Grid item xs={8}>
-        <Card>
-            <Grid container spacing={24}>
-              <Grid item xs={4}>
-                <div class="notesButtonDiv">
-                  {this.props.user.userName ? this.notesDialog() : null}
-                </div>
-              </Grid>
+          <Grid item xs={9}>
+            <Card>
+              <Grid container spacing={24}>
+                <Grid item xs={4}>
+                  <div class="notesButtonDiv">
+                    {this.props.user.userName ? this.notesDialog() : null}
+                  </div>
+                </Grid>
 
-              <Grid item xs={4}>
-                <div id="selectSound">
-                  <FormControl>
-                    <Select
-                      value={this.props.droneId}
-                      onChange={this.props.handleDrone}
-                    >
-                      <MenuItem value="0">
-                        Select Sound
+                <Grid item xs={4}>
+                  <div id="selectSound">
+                    <FormControl>
+                      <Select
+                        value={this.props.droneId}
+                        onChange={this.props.handleDrone}
+                      >
+                        <MenuItem value="0">
+                          Select Sound
                       </MenuItem>
-                      {soundMenu}
-                    </Select>
-                  </FormControl>
-                </div>
-              </Grid>
-
-              <Grid item xs={4}>
-                <div class="userButtonDiv">
-                  {this.props.user.userName ? this.saveButton() : null}
-                </div>
-              </Grid>
-
-              <Grid item xs={12}>
-                <div id="sliderBinauralContainerBig">
-
-                  <div id="sliderBinauralSpecificLabel">
-                    <Typography variant="caption">{this.props.activeSystemDescription.optimal}
-                    </Typography>
+                        {soundMenu}
+                      </Select>
+                    </FormControl>
                   </div>
+                </Grid>
 
-                  <div id="trendContainer"><Trend
-                    smooth
-                    autoDraw
-                    autoDrawDuration={3000}
-                    autoDrawEasing="ease-out"
-                    data={[this.props.binauralVal - 2, this.props.binauralVal + 5 , this.props.binauralVal + 12, this.props.binauralVal + 5, this.props.droneId - 12, this.props.binauralVal + 5, this.props.droneId + 10, 0, this.props.binauralVal, 1, 8, this.props.binauralVal + 2, 9, 0]}
-                    gradient={['#b2ebf2', '#FF8E53']}
-                    radius={10.2}
-                    strokeWidth={5}
-                    strokeLinecap={'butt'}
-                  />
+                <Grid item xs={4}>
+                  <div class="userButtonDiv">
+                    {this.props.user.userName ? this.saveButton() : null}
                   </div>
+                </Grid>
 
+                <Grid item xs={12}>
+                  <div id="sliderBinauralContainerBig">
 
-                  <div id="sliderBinauralContainer">
-
-                    <div id="sliderBinauralLabel">
-                      <Typography variant="display1">{this.props.activeSystemDescription.title}</Typography>
+                    <div id="sliderBinauralSpecificLabel">
+                      <Typography variant="caption">{this.props.activeSystemDescription.optimal}
+                      </Typography>
                     </div>
-                    
-                    <div id="sliderBinaural">
-                      <Knob
-                        min={1}
-                        max={19}
-                        step={.1}
-                        width={250}
-                        height={250}
-                        bgColor={'#EEE'}
-                        fgColor={'#f7a04f'}
-                        angleArc={180}
-                        angleOffset={270}
-                        value={this.props.binauralVal}
-                        onChange={this.props.handleBinaural}
+                    <div id="trendContainer">
+                      <Trend
+                        smooth
+                        autoDraw
+                        autoDrawDuration={50}
+                        autoDrawEasing="ease-out"
+                        data={[this.props.binauralVal + 2, this.props.binauralVal + 5, this.props.binauralVal + 12, this.props.binauralVal + 5, this.props.droneId - 12, this.props.binauralVal + 5, this.props.droneId + 10, 0, this.props.binauralVal, 1, 8, this.props.binauralVal + 2, 9, 0]}
+                        gradient={['#b2ebf2', '#FF8E53']}
+                        radius={10.2}
+                        strokeWidth={5}
+                        strokeLinecap={'butt'}
                       />
                     </div>
+
+                    <div id="sliderBinauralContainer">
+
+                      <div id="sliderBinauralLabel">
+                        <Typography variant="display1">{this.props.activeSystemDescription.title}</Typography>
+                      </div>
+
+                      <div id="sliderBinaural">
+                        <Knob
+                          min={1}
+                          max={19}
+                          step={.1}
+                          width={250}
+                          height={250}
+                          bgColor={'#EEE'}
+                          fgColor={'#f7a04f'}
+                          angleArc={180}
+                          angleOffset={270}
+                          value={this.props.binauralVal}
+                          onChange={this.props.handleBinaural}
+                        />
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </Grid>
+                </Grid>
 
-              <Grid item xs={4}>
-                <div id="sliderBalanceContainer">
-                  <div id="sliderBalance"><Slider
-                    min={-25}
-                    max={0}
-                    step={1}
-                    value={this.props.balance}
-                    vertical={false}
-                    reverse={false}
-                    tooltip={true}
-                    onChange={this.props.handleBalance}
-                  />
-                  </div>
-                </div>
-              </Grid>
-
-              <Grid item xs={4}>
-                <div id="playStopButton">              
-                  {this.props.isPlaying ? <IconButton><PauseCircleFilled color="primary" style={{ fontSize: 70 }} onClick={this.props.handleStop}/> </IconButton> : <IconButton><PlayCircleFilled color="primary" style={{ fontSize: 70 }} onClick={this.props.handleStart} /></IconButton> }
-                </div>
-              </Grid>
-
-              <Grid item xs={4}>
-                <div id="sliderVolumeContainer">
-                  <div id="sliderVolume">
-                    <Slider
-                      min={-60}
+                <Grid item xs={4}>
+                  <div id="sliderBalanceContainer">
+                    <div id="sliderBalance"><Slider
+                      min={-25}
                       max={0}
                       step={1}
-                      value={this.props.masterVolume}
+                      value={this.props.balance}
+                      vertical={false}
                       reverse={false}
                       tooltip={true}
-                      onChange={this.props.handleVolume}
+                      onChange={this.props.handleBalance}
                     />
+                    </div>
                   </div>
-                  <div id="sliderVolumeIcon">
-                    <VolumeUp color="secondary" />
-                  </div>
-                </div>
-              </Grid>
-            </Grid>
-        </Card>
-
                 </Grid>
+
+                <Grid item xs={4}>
+                  <div id="playStopButton">
+                    {this.props.isPlaying ? <IconButton><PauseCircleFilled color="primary" style={{ fontSize: 70 }} onClick={this.props.handleStop} /> </IconButton> : <IconButton><PlayCircleFilled color="primary" style={{ fontSize: 70 }} onClick={this.props.handleStart} /></IconButton>}
+                  </div>
+                </Grid>
+
+                <Grid item xs={4}>
+                  <div id="sliderVolumeContainer">
+                    <div id="sliderVolume">
+                      <Slider
+                        min={-60}
+                        max={0}
+                        step={1}
+                        value={this.props.masterVolume}
+                        reverse={false}
+                        tooltip={true}
+                        onChange={this.props.handleVolume}
+                      />
+                    </div>
+                    <div id="sliderVolumeIcon">
+                      <VolumeUp color="secondary" />
+                    </div>
+                  </div>
+                </Grid>
+              </Grid>
+            </Card>
+
           </Grid>
-     
+        </Grid>
+
 
       )
     } else {

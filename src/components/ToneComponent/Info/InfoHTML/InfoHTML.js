@@ -45,8 +45,6 @@ The large dial on the center of the screen controls the underlying low-frequency
 
 A balance slider on the lower right allows you to adjust the mix between the sound source and the binaural beat, and a master volume slider on the lower left gives you the ability to lower the overall effect in case you want to play it under other programmatic material.
 
- of an underlying low frequency tone which is automatically 
-
 </Typography>
 
     <br/>
@@ -75,6 +73,10 @@ Brain activity produces a variety of electrical patterns, or "brain waves" at di
 A binaural beat is very much akin to the wobble that one hears when tuning an instrument. As tones become very close to each other, the difference between them forms a lower, slower frequency that appears as a sort of beating sound. The periodicity of frequency of this beating sound can then be set to correspond to the frequencies and mind-states associated with the brain's electrical patterns. The correlation may be pseudo-scientific, but the suggestion is that if one listens to a binaural beat with a frequency corresponding to a known activity or state, the mind may be nudged or suggested into adopting that same state. Very specific information about frequencies and their associated brain states and therapeutic uses <a href="http://lunarsight.com/freq.htm" target="_blank">can be found here</a>.
 
 </Typography>
+<br/>
+<br/>
+<br/>
+<br/>
 
           </div>
 
