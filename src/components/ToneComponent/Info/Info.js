@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { USER_ACTIONS } from '../../../redux/actions/userActions';
 
 import Card from 'material-ui/Card';
-import Typography from 'material-ui/Typography';
-import { PlayCircleFilled, PauseCircleFilled, VolumeUp } from 'material-ui-icons';
+import { PlayCircleFilled, PauseCircleFilled } from 'material-ui-icons';
 import IconButton from 'material-ui/IconButton';
 import InfoHTML from '../../../components/ToneComponent/Info/InfoHTML/InfoHTML';
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { USER_ACTIONS } from '../../../redux/actions/userActions';
 
-import Slider, { Range } from 'rc-slider';
+import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
@@ -13,12 +13,12 @@ import Dialog, { DialogActions } from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField'
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Input, { InputLabel } from 'material-ui/Input';
-import { FormControl, FormHelperText } from 'material-ui/Form';
+import { FormControl } from 'material-ui/Form';
 import Knob from 'react-canvas-knob';
 import Grid from 'material-ui/Grid';
 import Trend from 'react-trend';
-import { PlayCircleFilled, PauseCircleFilled, Stop, VolumeUp } from 'material-ui-icons';
-import ToneComponent from '../../../components/ToneComponent/ToneComponent';
+import { PlayCircleFilled, PauseCircleFilled, VolumeUp } from 'material-ui-icons';
+
 
 
 import '../../../styles/main.css';

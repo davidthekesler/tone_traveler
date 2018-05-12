@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { USER_ACTIONS } from '../../../redux/actions/userActions';
 
-import Slider, { Range } from 'rc-slider';
-import 'rc-slider/assets/index.css';
 import Button from 'material-ui/Button';
-import { withStyles } from 'material-ui/styles';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Card from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
-
-import moment from 'moment';
-
 import Drawer from 'material-ui/Drawer';
 import { Delete } from 'material-ui-icons';
 
-
-import ToneComponent from '../../../components/ToneComponent/ToneComponent';
+import moment from 'moment';
 
 import '../../../styles/main.css';
-
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -28,7 +19,6 @@ const mapStateToProps = state => ({
 });
 
 class Library extends Component {
-
 
   libraryRender = () => {
 
@@ -40,7 +30,6 @@ class Library extends Component {
         </div>
       )
     } else {
-
 
       let libraryArray = this.props.library.map((libraryItem) => {
         return (
@@ -69,7 +58,6 @@ class Library extends Component {
     // Stringify Example <pre>{JSON.stringify(this.props.preset.allPresetsReducer)}</pre>
     return (
       <Drawer open={this.props.drawerOpen} onClose={this.props.handleDrawerOpen}>
-
         <div>{this.libraryRender()}</div>
       </Drawer>
     )

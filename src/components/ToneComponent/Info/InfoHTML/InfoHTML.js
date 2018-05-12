@@ -18,7 +18,7 @@ How to Use Tone Traveler:
 
 <Typography variant="caption">
 
-Tone Traveler helps mask the distractions in your environment and focus your mental activity, helping suggest states ranging from highly alert and focused to deep, therapeutic sleep.
+Tone Traveler masks distractions in your environment and focuses your mental activity, suggesting mind states ranging from highly alert to deeply relaxed. It'll help when you want to tackle an immersive problem at a busy cafe, bond with a book in a crowded airport waiting area, or simply stay on task during a hectic work day.
 
 </Typography>
 <Typography variant="caption">
@@ -62,7 +62,7 @@ More information on binaural beats and specific frequencies:
 <br/>
 
 Brain activity produces a variety of electrical patterns, or "brain waves" at different frequencies. These waves can be observed or recorded with an EEG (electroencephalograph) and different frequency ranges of these waves have been shown to correspond with different mind-states, moods, and activities. Research has gone so far as to classify these mind-states into five overarching groups: Gamma, Beta, Alpha, Theta, and Delta. Information on these groups and their associated brain states <a href=" https://mentalhealthdaily.com/2014/04/15/5-types-of-brain-waves-frequencies-gamma-beta-alpha-theta-delta/
-" target="_blank">can be found here</a>.
+" target="_blank" rel="noopener noreferrer">can be found here</a>.
 
 <br/>
 <br/>
@@ -70,7 +70,7 @@ Brain activity produces a variety of electrical patterns, or "brain waves" at di
 </Typography>
 <Typography variant="caption">
 
-A binaural beat is very much akin to the wobble that one hears when tuning an instrument. As tones become very close to each other, the difference between them forms a lower, slower frequency that appears as a sort of beating sound. The periodicity of frequency of this beating sound can then be set to correspond to the frequencies and mind-states associated with the brain's electrical patterns. The correlation may be pseudo-scientific, but the suggestion is that if one listens to a binaural beat with a frequency corresponding to a known activity or state, the mind may be nudged or suggested into adopting that same state. Very specific information about frequencies and their associated brain states and therapeutic uses <a href="http://lunarsight.com/freq.htm" target="_blank">can be found here</a>.
+A binaural beat is very much akin to the wobble that one hears when tuning an instrument. As tones become very close to each other, the difference between them forms a lower, slower frequency that appears as a sort of beating sound. The periodicity of frequency of this beating sound can then be set to correspond to the frequencies and mind-states associated with the brain's electrical patterns. The correlation may be pseudo-scientific, but the suggestion is that if one listens to a binaural beat with a frequency corresponding to a known activity or state, the mind may be nudged or suggested into adopting that same state. Very specific information about frequencies and their associated brain states and therapeutic uses <a href="http://lunarsight.com/freq.htm" target="_blank" rel="noopener noreferrer">can be found here</a>.
 
 </Typography>
 <br/>
