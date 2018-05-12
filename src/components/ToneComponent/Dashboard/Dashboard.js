@@ -139,14 +139,12 @@ class Dashboard extends Component {
 
                 <Grid item xs={4}>
                   <div id="selectSound">
-                    <FormControl>
-                      <Select
+                    <FormControl style={{minWidth: 180}}>
+                    <InputLabel htmlFor="selectDrone">Select Soundscape</InputLabel>
+                      <Select id="selectDrone"
                         value={this.props.droneId}
                         onChange={this.props.handleDrone}
                       >
-                        <MenuItem value="0">
-                          Select Sound
-                      </MenuItem>
                         {soundMenu}
                       </Select>
                     </FormControl>

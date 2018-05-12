@@ -74,7 +74,7 @@ class ToneComponent extends Component {
             playerVolume: -5,
             balance: -5,
             masterVolume: 0,
-            droneId: 1,
+            droneId: 3,
             descriptionString: '',
             descriptionGeneralId: 1,
             activeSystemDescription: {
