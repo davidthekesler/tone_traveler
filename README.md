@@ -1,19 +1,28 @@
-# Express/Passport with React
-This version uses React to control the login requests and redirection in coordination with client-side routing.
+# Tone Traveler
 
-We **STONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
+Tone Traveler helps mask the distractions in your environment and focus your mental activity, helping suggest states ranging from highly alert and focused to deep, therapeutic sleep.
 
-## Prerequisites
+The top half of Tone Traveler’s simple yet customizable player allows you to select from a library of sound sources, ranging from slowly evolving melodic drones to more natural soundscapes such as waterfalls, forests, and wind. 
 
-Before you get started, make sure you have the following software installed on your computer:
+The large dial on the center of the screen uses two sine-wave synthesizers panned hard L and R with a spread operator on their inputs to control the underlying low-frequency binaural beat for each sound source. The pitch of the binaural beat is automatically matched to the sound source. Information about the suggested brain activity for the frequency selected is displayed underneath the dial as you adjust it, as well as a readout of the specific frequency you're targeting. For more information on binaural beats, see below.
 
-- [Node.js](https://nodejs.org/en/)
-- [PostrgeSQL](https://www.postgresql.org/)
-- [Nodemon](https://nodemon.io/)
+A balance slider on the lower right allows you to adjust the mix between the sound source and the binaural beat, and a master volume slider on the lower left gives you the ability to lower the overall effect in case you want to play it under other programmatic material.
 
-## Create database and table
+![image](https://user-images.githubusercontent.com/11182170/39959067-c2629034-55d1-11e8-90e2-2801d5b4f90e.png)
 
-Create a new database called `prime_app` and create a `person` table:
+## Tech Used
+
+React
+Express
+Node.js
+PostgreSQL
+Material-UI
+Moment.js
+Tone.js
+Trend.js
+Web Audio API
+
+## SQL Database structure
 
 ```SQL
 CREATE TABLE person (
@@ -21,65 +30,57 @@ CREATE TABLE person (
     username VARCHAR (80) UNIQUE NOT NULL,
     password VARCHAR (1000) NOT NULL
 );
+
+CREATE TABLE drones (
+	 id SERIAL PRIMARY KEY,
+	 urlString varchar(1000),
+	 droneDescription varchar(1000),
+	 dronetitle varchar(1000),
+	 frequency DOUBLE PRECISION,
+);
+
+CREATE TABLE presets (
+  id SERIAL PRIMARY KEY,
+  createdTs TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  person_id INT REFERENCES person,
+  binauralVal INT,
+  synthFreq DOUBLE PRECISION,
+  synthVolume INT,
+  playerVolume INT,
+  balance INT,
+  masterVolume INT,
+  drone_id INT REFERENCES drones,
+  descriptionString varchar(10000)
+  descriptiongeneral_id INT REFERENCES descriptiongeneral,
+);
+  
+CREATE TABLE descriptiongeneral (
+	id SERIAL PRIMARY KEY,
+	min DOUBLE PRECISION,
+	max DOUBLE PRECISION,
+	title varchar(1000),
+	description varchar(1000),
+	toomuch varchar(1000),
+	toolittle varchar(1000),
+	optimal varchar(1000),
+	);
+	  
+CREATE TABLE descriptionspecific (
+	id SERIAL PRIMARY KEY,
+	min DOUBLE PRECISION,
+	max DOUBLE PRECISION,
+	description varchar(1000)
+	);
+
 ```
 
-If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
+## Additional information on binaural beats
 
-## Download (Don't Clone) This Repository
+Brain activity produces a variety of electrical patterns, or "brain waves" at different frequencies. These waves can be observed or recorded with an EEG (electroencephalograph) and different frequency ranges of these waves have been shown to correspond with different mind-states, moods, and activities. Research has gone so far as to classify these mind-states into five overarching groups: Gamma, Beta, Alpha, Theta, and Delta. Information on these groups and their associated brain states can be found here: 
 
-* Don't Fork or Clone. Instead, click the `Clone or Download` button and select `Download Zip`.
-* Unzip the project and start with the code in that folder.
-* Create a new GitHub project and push this code to the new repository.
+https://mentalhealthdaily.com/2014/04/15/5-types-of-brain-waves-frequencies-gamma-beta-alpha-theta-delta/
 
-## Development Setup Instructions
 
-* Run `npm install`
-* Create a `.env` file at the root of the project and paste this line into the file:
-    ```
-    SERVER_SESSION_SECRET=superDuperSecret
-    ```
-    While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-* Start postgres if not running already by using `brew services start postgresql`
-* Run `npm run dev`
-* Navigate to `localhost:3000`
+A binaural beat is very much akin to the wobble that one hears when tuning an instrument. As tones become very close to each other, the difference between them forms a lower, slower frequency that appears as a sort of beating sound. The periodicity of frequency of this beating sound can then be set to correspond to the frequencies and mind-states associated with the brain's electrical patterns. The correlation may be pseudo-scientific, but the suggestion is that if one listens to a binaural beat with a frequency corresponding to a known activity or state, the mind may be nudged or suggested into adopting that same state. Very specific information about frequencies and their associated brain states and therapeutic uses can be found here:
 
-## Debugging
-
-To debug, you will need to run the client-side separately from the server. Start the client by running the command `npm run dev:client`. Start the debugging server by selecting the Debug button.
-
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
-
-Then make sure `Launch Program` is selected from the dropdown, then click the green play arrow.
-
-![VSCode Debug Bar](documentation/images/vscode-debug-bar.png)
-
-## Linting
-
-The Airbnb ESLint for react is a part of this project. If you would like to take advantage of this in VS Code, you can add the `ESLint` extension. Click the `Extensions` button (the button right below the `Debug`) and search for `ESLint`. Click `install` for the first result and then click `Reload`. Then it should be all set up!
-
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
-
-## Production Build
-
-This is the build Heroku will run, but during development, you will likely not need to use it.
-
-* Start postgres if not running already by using `brew services start postgresql`
-* Run `npm start`
-* Navigate to `localhost:5000`
-
-## Lay of the Land
-
-* `src/` contains the React application
-* `public/` contains static assets for the client-side
-* `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
-* `server/` contains the Express App
-
-## Deployment
-
-1. Create a new Heroku project
-1. Link the Heroku project to the project GitHub Repo
-1. Create an Herkoku Postgres database
-1. Connect to the Heroku Postgres database from Postico
-1. Create the necessary tables
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
+http://lunarsight.com/freq.htm
