@@ -19,8 +19,6 @@ import Grid from 'material-ui/Grid';
 import Trend from 'react-trend';
 import { PlayCircleFilled, PauseCircleFilled, VolumeUp } from 'material-ui-icons';
 
-
-
 import '../../../styles/main.css';
 
 
@@ -118,8 +116,6 @@ class Dashboard extends Component {
   }
 
   render() {
-
-
 
     // Stringify Example <pre>{JSON.stringify(this.props.preset.allPresetsReducer)}</pre>
 
@@ -264,7 +260,7 @@ class Dashboard extends Component {
       )
     }//end return conditionals
   }//end render
-}
+}//end Dashboard component
 
 export default connect(mapStateToProps)(Dashboard);
 

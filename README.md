@@ -6,7 +6,7 @@ The top half of Tone Traveler’s simple yet customizable player allows you to s
 
 The large dial on the center of the screen uses two sine-wave synthesizers panned hard L and R with a spread operator on their inputs to control the underlying low-frequency binaural beat for each sound source. The pitch of the binaural beat is automatically matched to the sound source. Information about the suggested brain activity for the frequency selected is displayed underneath the dial as you adjust it, as well as a readout of the specific frequency you're targeting. For more information on binaural beats, see below.
 
-A balance slider on the lower right allows you to adjust the mix between the sound source and the binaural beat, and a master volume slider on the lower left gives you the ability to lower the overall effect in case you want to play it under other programmatic material.
+A balance slider on the lower right adjusts the mix between the sound source and the binaural beat, and a master volume slider on the lower left lowers the overall sound in case you want to play it under other programmatic material.
 
 ![image](https://user-images.githubusercontent.com/11182170/39959067-c2629034-55d1-11e8-90e2-2801d5b4f90e.png)
 

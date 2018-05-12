@@ -43,7 +43,7 @@ The large dial on the center of the screen controls the underlying low-frequency
 </Typography>
 <Typography variant="caption">
 
-A balance slider on the lower right allows you to adjust the mix between the sound source and the binaural beat, and a master volume slider on the lower left gives you the ability to lower the overall effect in case you want to play it under other programmatic material.
+A balance slider on the lower right adjusts the mix between the sound source and the binaural beat, and a master volume slider on the lower left lowers the overall sound in case you want to play it under other programmatic material.
 
 </Typography>
 

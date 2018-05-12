@@ -7,9 +7,7 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import Dashboard from '../../components/ToneComponent/Dashboard/Dashboard';
 import Info from '../../components/ToneComponent/Info/Info';
 import Library from '../../components/ToneComponent/Library/Library';
-import Button from 'material-ui/Button';
 import Card from 'material-ui/Card';
-import { Tabs, Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
 
 import '../../styles/main.css';
@@ -23,6 +21,7 @@ const mapStateToProps = state => ({
 });
 
 
+//set up initial Tone.js synths and player
 let droneSamples = {};
 
 let synth1 = new Tone.Synth({
@@ -54,6 +53,7 @@ let panVol2 = new Tone.PanVol().toMaster();
 let player = new Tone.Player();
 player.loop = true;
 
+//routing for synth and player
 let playerVol = new Tone.Volume().toMaster();
 
 synth1.connect(panVol1);
@@ -95,38 +95,31 @@ class ToneComponent extends Component {
         }//end state
     }//end constructor
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.description != this.props.description) {
-            console.log('got to Set state in componentWillReceiveProps!');
-            this.setState({
-                activeSystemDescription: this.props.description.allGeneralDescriptionsReducer[0]
-            })
-        }
-    }
 
     componentDidMount() {
 
+        //get user info
         this.props.dispatch({
             type: USER_ACTIONS.FETCH_USER
         });
 
+        //get descriptions for binaural beat knob
         this.props.dispatch({
             type: 'GET_DESCRIPTIONS_GENERAL'
         });
 
-
+        //get database of sound sources for load into audio buffer
         axios.get('/api/sounds')
             .then((response) => {
                 let dronesForBuffer = {};
-
+                //convert to objects for buffer
                 for (let sound of response.data) {
                     let soundToString = sound.id
                     let url = sound.urlstring;
-                    // console.log(url);
                     let objectToAppend = { [soundToString]: url };
                     dronesForBuffer = { ...dronesForBuffer, ...objectToAppend }
                 }
-
+                //set up initial audio player and initial pans and audio levels
                 droneSamples = new Tone.Buffers(dronesForBuffer, () => {
                     player.buffer = droneSamples.get(this.state.droneId);
                     panVol2.pan.value = -1;
@@ -134,24 +127,16 @@ class ToneComponent extends Component {
                     panVol1.pan.value = 1;
                     panVol1.volume.value = this.state.synthVolume;
                     Tone.Master.volume.value = this.state.masterVolume;
-
+                    //buffer is loaded, load page
                     this.setState({
                         soundsArray: response.data,
                         isLoaded: true
                     })
-
                 });
-
             }).catch((err) => {
                 console.log(err)
             });
-
-
     }//end componentDidMount
-
-    componentWillReceiveProps(nextProps) {
-
-    }
 
 
     handleStart = () => {
@@ -188,14 +173,13 @@ class ToneComponent extends Component {
         this.handleDescription();
         synth1.setNote(freq1);
         synth2.setNote(freq2);
-    }
+    }//end handleBinaural
 
     handleDescription = () => {
+        //get descriptions from database and match to binaural slider value
         let descriptionSpecific = {};
-
         for (let description of this.props.description.allGeneralDescriptionsReducer) {
             if ((this.state.binauralVal >= description.min) && (this.state.binauralVal <= description.max)) {
-
                 descriptionSpecific =
                     {
                         title: description.title,
@@ -209,7 +193,6 @@ class ToneComponent extends Component {
         this.setState({
             activeSystemDescription: descriptionSpecific
         });
-        // console.log('in handleDescription, descriptionSpecific', descriptionSpecific);
     }//end handleDescription
 
 
@@ -219,32 +202,25 @@ class ToneComponent extends Component {
             masterVolume: value,
             isChanged: true
         });
-
-    }
+    }//end handleVolume
 
     handleBalance = (value) => {
         let valueInput = value;
         let synthVolumeToAdjust = (-25 - (valueInput));
         let synthVolume = synthVolumeToAdjust - 25;
-
         if (value > -5) {
             synthVolume = (synthVolume - ((value + 5) * 5));
             valueInput = (valueInput - (value + 5));
-            console.log('in valueInput adjust over 5', valueInput);
+            // console.log('in valueInput adjust over 5', valueInput);
         }
-
         if (value <= -5 && value > -10) {
             valueInput = (valueInput - (value + 5));
-            console.log('in valueInput adjust between 5 and 10', valueInput);
+            // console.log('in valueInput adjust between 5 and 10', valueInput);
         }
-
         if (value <= -10) {
             valueInput = ((valueInput + ((value + 10) * 2) + 5));
-            console.log('in valueInput adjust under 20', valueInput);
+            // console.log('in valueInput adjust under 20', valueInput);
         }
-
-        // if (valueInput >5
-
         panVol1.volume.rampTo(synthVolume);
         panVol2.volume.rampTo(synthVolume);
         playerVol.volume.rampTo(valueInput);
@@ -255,11 +231,10 @@ class ToneComponent extends Component {
             playerVolume: valueInput,
             isChanged: true
         });
-
     }//end handlebalance
 
     handleDrone = (event) => {
-
+        //sets audio buffer and maps over sounds to select appropriate pitch selected buffer
         let pitchToMap;
         for (let sound of this.state.soundsArray) {
             if (sound.id == event.target.value) {
@@ -310,27 +285,26 @@ class ToneComponent extends Component {
             });
         }
         );
-    }
+    }//end handleSaveToLibrary
 
     
 
     sendToLibrary = () => {
-
+    //sends current state to preset db as new
         this.props.dispatch({
             type: 'ADD_PRESET',
             payload: this.state
         });
-        console.log(this.state.descriptionGeneralId);
-
-    }
+    }//end sendToLibrary
 
     handleSaveChanges = () => {
+    //sends current state to db as change
         console.log('made it to handleSaveChanges');
         this.props.dispatch({
             type: 'PUT_PRESET',
             payload: this.state
         });
-    }
+    }//end handleSaveChanges
 
 
     handleDelete = (libraryItem) => {
@@ -338,7 +312,7 @@ class ToneComponent extends Component {
             type: 'DELETE_PRESET',
             payload: libraryItem.id
         });
-    }
+    }//end handleDelete
 
     handleLoad = (libraryItem) => {
         player.stop();
@@ -362,34 +336,34 @@ class ToneComponent extends Component {
             player.buffer = droneSamples.get(this.state.droneId);
             let freq1 = this.state.synthFreq - (this.state.binauralVal / 2);
             let freq2 = this.state.synthFreq + (this.state.binauralVal / 2);
-
-            let synthVolume = (-60) - (5 + this.state.masterVolume);
             panVol1.volume.rampTo(this.state.synthVolume);
             panVol2.volume.rampTo(this.state.synthVolume);
             playerVol.volume.rampTo(this.state.playerVolume);
             synth1.setNote(freq1);
             synth2.setNote(freq2);
             Tone.Master.volume.rampTo(this.state.masterVolume, .01);
-
             synth1.triggerAttack(freq1);
             synth2.triggerAttack(freq2);
             player.start();
         })//end setState callback
-    }
+    }//end handleLoad
 
     handleNotesClose = () => {
+        //for notes dialog currently in Dashboard.js
         this.setState({
             dialogOpen: false,
         })
     }
 
     handleNotesOpen = () => {
+        //for notes dialog currently in Dashboard.js
         this.setState({
             dialogOpen: true
         })
     }
 
     handleInputChangeFor = propertyName => (event) => {
+        //for notes dialog currently in Dashboard.js
         this.setState({
             [propertyName]: event.target.value,
             isChanged: true
@@ -405,8 +379,6 @@ class ToneComponent extends Component {
         })
     };
 
-
-
     handleRouter = (routerString) => {
         this.setState({
             router: routerString
@@ -415,7 +387,7 @@ class ToneComponent extends Component {
 
     dashboardRender = () => {
         return (
-            <Dashboard isLoaded={this.state.isLoaded}
+            <Dashboard
                 handleStart={this.handleStart}
                 handleStop={this.handleStop}
                 handleBalance={this.handleBalance}
@@ -485,7 +457,7 @@ class ToneComponent extends Component {
         this.setState({
             drawerOpen: !this.state.drawerOpen
         })
-    }
+    }//for library.js
 
     //alternative router to keep audio context active while different pages are loaded
     routerRender = () => {
@@ -497,9 +469,7 @@ class ToneComponent extends Component {
                 </div>
             )
         } else {
-
             switch (this.state.router) {
-
                 case 'dashboard': {
                     return (
                         <div id="mainViewDiv">
@@ -554,8 +524,6 @@ class ToneComponent extends Component {
             </div>
         )
     }//end render
-
 }//end ToneComponent
-
 
 export default connect(mapStateToProps)(ToneComponent);
