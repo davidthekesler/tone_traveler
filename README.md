@@ -1,6 +1,6 @@
 # Tone Traveler
 
-Tone Traveler helps mask the distractions in your environment and focus your mental activity, helping suggest states ranging from highly alert and focused to deep, therapeutic sleep.
+Tone Traveler masks distractions in your environment and focuses your mental activity, suggesting mind states ranging from highly alert to deeply relaxed. It'll help when you want to tackle an immersive problem at a busy cafe, bond with a book in a crowded airport waiting area, or simply stay on task during a hectic work day.
 
 The top half of Tone Traveler’s simple yet customizable player allows you to select from a library of sound sources, ranging from slowly evolving melodic drones to more natural soundscapes such as waterfalls, forests, and wind. 
 
