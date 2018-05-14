@@ -109,8 +109,9 @@
 
 #libraryCard {
     min-width: 100px;
-    height: 60px;   
+    height: 100px;   
     margin: 10px;
+    padding: 10px;
 }
     
 

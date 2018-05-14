@@ -25,7 +25,7 @@ class Library extends Component {
     if (this.props.library.length === 0) {
       return (
         <div>
-          <div style={{ padding: '10px' }}><Typography variant="body1">Your saved presets will appear here.</Typography></div>
+          <div style={{ padding: '10px' }}><Typography variant="display1">Save presets here:</Typography></div>
           {this.props.handleStartNew()}
         </div>
       )
@@ -35,10 +35,11 @@ class Library extends Component {
         return (
           <Card style={{ padding: '10px', margin: '10px' }} key={libraryItem.id}>
             <div id="libraryCard">
-              <div>{moment(libraryItem.createdts).format("MMM Do YYYY")}, {libraryItem.title} - {libraryItem.binauralval} Hz</div>
-              <div>{libraryItem.descriptionstring}</div>
+            <Typography variant="caption">{moment(libraryItem.createdts).format("MMM Do YYYY")}, {libraryItem.title} - {libraryItem.binauralval} Hz</Typography>
+            <Typography variant="display1">{libraryItem.dronetitle}</Typography>
+              <Typography variant="caption">{libraryItem.descriptionstring}</Typography>
               <IconButton><Delete style={{ fontSize: 15 }} onClick={() => this.props.handleDelete(libraryItem)} /></IconButton>
-              <Button size="small" color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={() => this.props.handleLoad(libraryItem)}>Load</Button>
+              <Button size="small" color="secondary" style={{ fontSize: 10, margin: '10px' }} variant="raised" onClick={() => this.props.handleLoad(libraryItem)}>Load</Button>
             </div>
           </Card>
 
@@ -46,7 +47,7 @@ class Library extends Component {
       });
       return (
         <div>
-          <div style={{ padding: '10px' }}><Typography variant="body1">Your saved presets:</Typography></div>
+          <div style={{ padding: '10px' }}><Typography variant="display1">Your saved presets:</Typography></div>
           <div>{libraryArray}</div>
         </div>
       )

@@ -30,7 +30,7 @@ let synth1 = new Tone.Synth({
     },
     "envelope": {
         "attack": .20,
-        "decay": 0
+        "sustain": 1
     }
 }
 );
@@ -43,7 +43,7 @@ let synth2 = new Tone.Synth({
     },
     "envelope": {
         "attack": .20,
-        "decay": 0
+        "sustain": 1
     }
 }
 );
@@ -52,6 +52,7 @@ let panVol2 = new Tone.PanVol().toMaster();
 
 let player = new Tone.Player();
 player.loop = true;
+player.fadeIn = 2;
 
 //routing for synth and player
 let playerVol = new Tone.Volume().toMaster();
@@ -69,12 +70,12 @@ class ToneComponent extends Component {
             router: 'dashboard',
             id: 1,
             binauralVal: 2.2,
-            synthFreq: 130.81,
+            synthFreq: 73.42,
             synthVolume: -45,
             playerVolume: -5,
             balance: -5,
             masterVolume: 0,
-            droneId: 3,
+            droneId: '',
             descriptionString: '',
             descriptionGeneralId: 1,
             activeSystemDescription: {
@@ -121,11 +122,12 @@ class ToneComponent extends Component {
                 }
                 //set up initial audio player and initial pans and audio levels
                 droneSamples = new Tone.Buffers(dronesForBuffer, () => {
-                    player.buffer = droneSamples.get(this.state.droneId);
+                    player.buffer = droneSamples.get(3);
                     panVol2.pan.value = -1;
                     panVol2.volume.value = this.state.synthVolume;
                     panVol1.pan.value = 1;
                     panVol1.volume.value = this.state.synthVolume;
+                    playerVol.volume.value = this.state.playerVolume
                     Tone.Master.volume.value = this.state.masterVolume;
                     //buffer is loaded, load page
                     this.setState({
@@ -140,6 +142,7 @@ class ToneComponent extends Component {
 
 
     handleStart = () => {
+        console.log('in handleStart, tone buffer:', player.buffer);
         let freq1 = this.state.synthFreq - (this.state.binauralVal / 2);
         let freq2 = this.state.synthFreq + (this.state.binauralVal / 2);
         synth1.triggerAttack(freq1);
@@ -287,10 +290,8 @@ class ToneComponent extends Component {
         );
     }//end handleSaveToLibrary
 
-    
-
     sendToLibrary = () => {
-    //sends current state to preset db as new
+        //sends current state to preset db as new
         this.props.dispatch({
             type: 'ADD_PRESET',
             payload: this.state
@@ -298,12 +299,18 @@ class ToneComponent extends Component {
     }//end sendToLibrary
 
     handleSaveChanges = () => {
-    //sends current state to db as change
-        console.log('made it to handleSaveChanges');
-        this.props.dispatch({
-            type: 'PUT_PRESET',
-            payload: this.state
-        });
+        //sends current state to db as change
+        this.setState({
+            isChanged: false
+        }, () => {
+            console.log('made it to handleSaveChanges, here is state', this.state);
+            this.props.dispatch({
+                type: 'PUT_PRESET',
+                payload: this.state
+            });
+        }
+        );
+
     }//end handleSaveChanges
 
 
@@ -328,11 +335,12 @@ class ToneComponent extends Component {
             masterVolume: libraryItem.mastervolume,
             droneId: libraryItem.drone_id,
             descriptionString: libraryItem.descriptionstring,
+            descriptionGeneralId: libraryItem.descriptiongeneral_id,
             isPlaying: true,
             isPreset: true,
             isChanged: false,
-            drawerOpen: false
         }, () => {
+            this.handleDescription();
             player.buffer = droneSamples.get(this.state.droneId);
             let freq1 = this.state.synthFreq - (this.state.binauralVal / 2);
             let freq2 = this.state.synthFreq + (this.state.binauralVal / 2);
@@ -341,10 +349,14 @@ class ToneComponent extends Component {
             playerVol.volume.rampTo(this.state.playerVolume);
             synth1.setNote(freq1);
             synth2.setNote(freq2);
-            Tone.Master.volume.rampTo(this.state.masterVolume, .01);
-            synth1.triggerAttack(freq1);
-            synth2.triggerAttack(freq2);
-            player.start();
+            Tone.Master.volume.rampTo(this.state.masterVolume);
+            let millisecondsToWait = 1000;
+            setTimeout(function () {
+                synth1.triggerAttack(freq1);
+                synth2.triggerAttack(freq2);
+                player.start();
+            }, millisecondsToWait);
+
         })//end setState callback
     }//end handleLoad
 

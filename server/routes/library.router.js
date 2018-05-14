@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
   if(req.isAuthenticated()){
     console.log('made it to library router.get');
     const queryText = `SELECT presets.id, presets.createdts, presets.person_id, presets.binauralval, presets.synthfreq, presets.synthvolume, 
-    presets.playervolume, presets.balance, presets.mastervolume, presets.drone_id, presets.descriptionstring, descriptiongeneral.description, descriptiongeneral.max, descriptiongeneral.min, descriptiongeneral.optimal, descriptiongeneral.title, descriptiongeneral.toolittle, descriptiongeneral.toomuch, drones.dronetitle, drones.dronedescription FROM presets INNER JOIN descriptiongeneral ON descriptiongeneral.id = presets.descriptiongeneral_id INNER JOIN drones ON drones.id = presets.drone_id WHERE presets.person_id = $1`;
+    presets.playervolume, presets.balance, presets.mastervolume, presets.drone_id, presets.descriptionstring, presets.descriptiongeneral_id, descriptiongeneral.description, descriptiongeneral.max, descriptiongeneral.min, descriptiongeneral.optimal, descriptiongeneral.title, descriptiongeneral.toolittle, descriptiongeneral.toomuch, drones.dronetitle, drones.dronedescription FROM presets INNER JOIN descriptiongeneral ON descriptiongeneral.id = presets.descriptiongeneral_id INNER JOIN drones ON drones.id = presets.drone_id WHERE presets.person_id = $1`;
     pool.query(queryText, [req.user.id])
       .then((result) => { res.send(result.rows); })
       .catch((err) => {

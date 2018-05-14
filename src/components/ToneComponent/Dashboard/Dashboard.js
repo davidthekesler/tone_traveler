@@ -170,7 +170,8 @@ class Dashboard extends Component {
                         autoDraw
                         autoDrawDuration={50}
                         autoDrawEasing="ease-out"
-                        data={[this.props.binauralVal + 2, this.props.binauralVal + 5, this.props.binauralVal + 12, this.props.balance + 30, this.props.droneId - 12, this.props.binauralVal + 5, this.props.droneId + 10, 0, this.props.binauralVal, 1, this.props.balance + 29, this.props.binauralVal + 2, 9, 0]} gradient={['#b2ebf2', '#FF8E53']}
+                        data={[this.props.binauralVal + 2, this.props.balance + 25, this.props.binauralVal + 12, this.props.binauralVal + 5, 12, this.props.binauralVal + 5, this.props.balance, this.props.balance + 22  , this.props.binauralVal, this.props.balance, 10, this.props.binauralVal + 2, this.props.balance, this.props.binauralVal - 2,]}
+                        gradient={['#b2ebf2', '#FF8E53']}
                         radius={10.2}
                         strokeWidth={5}
                         strokeLinecap={'butt'}
