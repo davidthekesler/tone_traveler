@@ -10,7 +10,9 @@ import Library from '../../components/ToneComponent/Library/Library';
 import Card from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
+
 import '../../styles/main.css';
+
 
 Tone.context.latencyHint = 'playback';
 
@@ -52,7 +54,8 @@ let panVol2 = new Tone.PanVol().toMaster();
 
 let player = new Tone.Player();
 player.loop = true;
-player.fadeIn = 2;
+player.fadeIn = 1;
+player.fadeOut = 1;
 
 //routing for synth and player
 let playerVol = new Tone.Volume().toMaster();
@@ -74,7 +77,7 @@ class ToneComponent extends Component {
             synthVolume: -45,
             playerVolume: -5,
             balance: -5,
-            masterVolume: 0,
+            masterVolume: 10,
             droneId: '',
             descriptionString: '',
             descriptionGeneralId: 1,
@@ -143,6 +146,7 @@ class ToneComponent extends Component {
 
     handleStart = () => {
         console.log('in handleStart, tone buffer:', player.buffer);
+        Tone.context.resume().then(() => {
         let freq1 = this.state.synthFreq - (this.state.binauralVal / 2);
         let freq2 = this.state.synthFreq + (this.state.binauralVal / 2);
         synth1.triggerAttack(freq1);
@@ -152,6 +156,8 @@ class ToneComponent extends Component {
             isPlaying: true
         }
         );
+    })
+
     }//end handleStart
 
     handleStop = () => {
@@ -341,6 +347,7 @@ class ToneComponent extends Component {
             isChanged: false,
         }, () => {
             this.handleDescription();
+            Tone.context.resume().then(() => {
             player.buffer = droneSamples.get(this.state.droneId);
             let freq1 = this.state.synthFreq - (this.state.binauralVal / 2);
             let freq2 = this.state.synthFreq + (this.state.binauralVal / 2);
@@ -358,6 +365,7 @@ class ToneComponent extends Component {
             }, millisecondsToWait);
 
         })//end setState callback
+    })
     }//end handleLoad
 
     handleNotesClose = () => {
@@ -527,7 +535,7 @@ class ToneComponent extends Component {
                 <Card>
                     <div id="navContainer">
                         <div id="navDashboard" onClick={() => this.handleRouter('dashboard')}><Typography variant="body1">Dashboard</Typography></div>
-                        <div id="navInfo" onClick={() => this.handleRouter('info')}><Typography variant="body1">Info</Typography></div>
+                        <div id="navInfo" onClick={() => this.handleRouter('info')}><Typography variant="body1">More Info</Typography></div>
                         {this.props.user.userName ? this.libraryUserYesRouterRender() : this.libraryUserNoRouterRender()}
                     </div>
                 </Card>

@@ -17,7 +17,7 @@ import { FormControl } from 'material-ui/Form';
 import Knob from 'react-canvas-knob';
 import Grid from 'material-ui/Grid';
 import Trend from 'react-trend';
-import { PlayCircleFilled, PauseCircleFilled, VolumeUp } from 'material-ui-icons';
+import { PlayCircleFilled, PauseCircleFilled, VolumeUp, DonutSmall } from 'material-ui-icons';
 
 import '../../../styles/main.css';
 
@@ -139,8 +139,8 @@ class Dashboard extends Component {
 
                 <Grid item xs={4}>
                   <div id="selectSound">
-                    <FormControl style={{minWidth: 180}}>
-                    <InputLabel htmlFor="selectDrone">Select Soundscape</InputLabel>
+                    <FormControl style={{ minWidth: 180 }}>
+                      <InputLabel htmlFor="selectDrone">Select Soundscape</InputLabel>
                       <Select id="selectDrone"
                         value={this.props.droneId}
                         onChange={this.props.handleDrone}
@@ -170,7 +170,7 @@ class Dashboard extends Component {
                         autoDraw
                         autoDrawDuration={50}
                         autoDrawEasing="ease-out"
-                        data={[this.props.binauralVal + 2, this.props.balance + 25, this.props.binauralVal + 12, this.props.binauralVal + 5, 12, this.props.binauralVal + 5, this.props.balance, this.props.balance + 22  , this.props.binauralVal, this.props.balance, 10, this.props.binauralVal + 2, this.props.balance, this.props.binauralVal - 2,]}
+                        data={[this.props.binauralVal + 2, this.props.balance + 25, this.props.binauralVal + 12, this.props.binauralVal + 5, 12, this.props.binauralVal + 5, this.props.balance, this.props.balance + 22, this.props.binauralVal, this.props.balance, 10, this.props.binauralVal + 2, this.props.balance, this.props.binauralVal - 2,]}
                         gradient={['#b2ebf2', '#FF8E53']}
                         radius={10.2}
                         strokeWidth={5}
@@ -205,6 +205,10 @@ class Dashboard extends Component {
 
                 <Grid item xs={4}>
                   <div id="sliderBalanceContainer">
+                    <div id="sliderBalanceLabelBinauralBeat">
+                      <DonutSmall color="secondary" />
+                    </div>
+
                     <div id="sliderBalance"><Slider
                       min={-25}
                       max={0}
@@ -230,7 +234,7 @@ class Dashboard extends Component {
                     <div id="sliderVolume">
                       <Slider
                         min={-60}
-                        max={0}
+                        max={20}
                         step={1}
                         value={this.props.masterVolume}
                         reverse={false}
