@@ -14,7 +14,7 @@ import TextField from 'material-ui/TextField'
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Input, { InputLabel } from 'material-ui/Input';
 import { FormControl } from 'material-ui/Form';
-import Knob from 'react-canvas-knob';
+import Knob from './Knob';
 import Grid from 'material-ui/Grid';
 import Trend from 'react-trend';
 import { PlayCircleFilled, PauseCircleFilled, VolumeUp, DonutSmall } from 'material-ui-icons';
@@ -39,15 +39,15 @@ class Dashboard extends Component {
     if (this.props.isChanged && !this.props.isPreset) {
       return (
         <div class="notesButtonDiv">
-          <Button color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleSaveToLibrary}>Save To Library</Button>
+          <Button color="secondary" style={{ fontSize: 10, 'margin': '10px' }} variant="raised" onClick={this.props.handleSaveToLibrary}>Save To Library</Button>
         </div>
       )
     } else if (this.props.isChanged && this.props.isPreset) {
       return (
         <div>
           <div class="notesButtonDiv">
-            <Button color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleSaveChanges}>Save Changes</Button>
-            <Button style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleStartNew}>Start New</Button>
+            <Button color="secondary" style={{ fontSize: 10, 'margin': '10px' }} variant="raised" onClick={this.props.handleSaveChanges}>Save Changes</Button>
+            <Button style={{ fontSize: 10, 'margin': '10px' }} variant="raised" onClick={this.props.handleStartNew}>Start New</Button>
           </div>
         </div>
       )
@@ -55,15 +55,15 @@ class Dashboard extends Component {
       return (
         <div>
           <div class="notesButtonDiv">
-            <Button disabled color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleSaveChanges}>Save Changes</Button>
-            <Button style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleStartNew}>Start New</Button>
+            <Button disabled color="secondary" style={{ fontSize: 10, 'margin': '10px' }} variant="raised" onClick={this.props.handleSaveChanges}>Save Changes</Button>
+            <Button style={{ fontSize: 10, 'margin': '10px' }} variant="raised" onClick={this.props.handleStartNew}>Start New</Button>
           </div>
         </div>
       )
     } else if (!this.props.isChanged && !this.props.isPreset) {
       return (
         <div class="notesButtonDiv">
-          <Button disabled color="secondary" style={{ fontSize: 10 }} variant="raised">Save To Library</Button>
+          <Button disabled color="secondary" style={{ fontSize: 10, 'margin': '10px' }} variant="raised">Save To Library</Button>
         </div>
       )
 
@@ -74,7 +74,7 @@ class Dashboard extends Component {
 
     return (
       <div>
-        <Button color="secondary" style={{ fontSize: 10 }} variant="raised" onClick={this.props.handleNotesOpen}>Notes</Button>
+        <Button color="secondary" style={{ fontSize: 10, 'margin': '10px' }} variant="raised" onClick={this.props.handleNotesOpen}>Notes</Button>
         <Dialog
           open={this.props.dialogOpen}
         >

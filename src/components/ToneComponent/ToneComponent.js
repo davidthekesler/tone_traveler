@@ -485,7 +485,7 @@ class ToneComponent extends Component {
         if (!this.state.isLoaded) {
             return (
                 <div id="spinnerDiv">
-                    <div class="loader"></div>
+                    <div className="loader"></div>
                 </div>
             )
         } else {
