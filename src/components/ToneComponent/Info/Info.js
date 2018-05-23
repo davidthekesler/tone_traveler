@@ -30,7 +30,7 @@ class Info extends Component {
 
     return (
       <div id="#dashboardContainer">
-        <Card>
+        <Card style={{'padding': '50px'}}>
           <div id="infoPagePlayStop">
             <div id="playStopButton">
               {this.props.isPlaying ? <IconButton><PauseCircleFilled color="primary" style={{ fontSize: 70 }} onClick={this.props.handleStop} /> </IconButton> : <IconButton><PlayCircleFilled color="primary" style={{ fontSize: 70 }} onClick={this.props.handleStart} /></IconButton>}
