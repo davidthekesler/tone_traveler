@@ -1,10 +1,10 @@
 # Tone Traveler
 
-Tone Traveler masks distractions in your environment and focuses your mental activity, suggesting mind states ranging from highly alert to deeply relaxed. It'll help when you want to tackle an immersive problem at a busy cafe, bond with a book in a crowded airport waiting area, or simply stay on task during a hectic work day.
+Tone Traveler is a React-Based soundscape generator. It's useful for masking distractions in your environment and focusing your mental activity, helping to suggest mind states ranging from highly alert to deeply relaxed. Give it a try if you want to tackle an immersive problem at a busy cafe, bond with a book in a crowded airport waiting area, or simply stay on task during a hectic work day.
 
 The top half of Tone Traveler’s simple yet customizable player allows you to select from a library of sound sources, ranging from slowly evolving melodic drones to more natural soundscapes such as waterfalls, forests, and wind. 
 
-The large dial on the center of the screen uses two sine-wave synthesizers panned hard L and R with a spread operator on their inputs to control the underlying low-frequency binaural beat for each sound source. The pitch of the binaural beat is automatically matched to the sound source. Information about the suggested brain activity for the frequency selected is displayed underneath the dial as you adjust it, as well as a readout of the specific frequency you're targeting. For more information on binaural beats, see below.
+The large dial on the center of the screen uses two sine-wave synthesizers which control an underlying low-frequency binaural beat, automatically pitch-matched to a selected sound source. Information about the suggested brain activity for the frequency selected is displayed underneath the dial as you adjust it, as well as a readout of the specific frequency you're targeting. For more information on binaural beats, see below.
 
 A balance slider on the lower right adjusts the mix between the sound source and the binaural beat, and a master volume slider on the lower left lowers the overall sound in case you want to play it under other programmatic material.
 
