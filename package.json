@@ -1,6 +1,22 @@
 {
   "name": "prime-solo-project",
   "version": "0.1.0",
+
+
+  "babel":{
+    "presets": ["es2015", "stage-0"],
+    "env": {
+      "development": {
+        "plugins": [["react-transform", {
+          "transforms": [{
+            "transform": "react-transform-hmr",
+            "imports": ["react"],
+            "locals": ["module"]
+          }]
+        }]]
+      }
+    }
+  },
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
@@ -15,6 +31,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "express": "^4.16.3",
+    "font-awesome": "^4.7.0",
     "i": "^0.3.6",
     "material-ui": "^1.0.0-beta.44",
     "material-ui-icons": "^1.0.0-beta.36",
@@ -50,6 +67,8 @@
     "babel-eslint": "^7.2.3",
     "babel-plugin-react-transform": "^3.0.0",
     "nodemon": "^1.17.2",
+    "react-transform-catch-errors": "^1.0.2",
+    "react-transform-hmr": "^1.0.4",
     "redbox-react": "^1.6.0"
   }
 }
