@@ -6,7 +6,7 @@ The top half of Tone Traveler’s simple yet customizable player allows you to s
 
 The large dial on the center of the screen uses two sine-wave synthesizers which control an underlying low-frequency binaural beat, automatically pitch-matched to a selected sound source. Information about the suggested brain activity for the frequency selected is displayed underneath the dial as you adjust it, as well as a readout of the specific frequency you're targeting. For more information on binaural beats, see below.
 
-A balance slider on the lower right adjusts the mix between the sound source and the binaural beat, and a master volume slider on the lower left lowers the overall sound in case you want to play it under other programmatic material.
+A balance slider on the lower left adjusts the mix between the sound source and the binaural beat, and a master volume slider on the lower right lowers the overall sound in case you want to play it under other programmatic material.
 
 ![image](https://user-images.githubusercontent.com/11182170/39959067-c2629034-55d1-11e8-90e2-2801d5b4f90e.png)
 
@@ -81,6 +81,4 @@ Brain activity produces a variety of electrical patterns, or "brain waves" at di
 https://mentalhealthdaily.com/2014/04/15/5-types-of-brain-waves-frequencies-gamma-beta-alpha-theta-delta/
 
 
-A binaural beat is very much akin to the wobble that one hears when tuning an instrument. As tones become very close to each other, the difference between them forms a lower, slower frequency that appears as a sort of beating sound. The periodicity of this beating sound can then be set to correspond to the frequencies and mind-states associated with the brain's electrical patterns. Some studies show that if one listens to a binaural beat with a frequency corresponding to a known activity or state, the mind may be nudged or suggested into adopting that same state. Very specific information about frequencies and their associated brain states and therapeutic uses can be found here:
-
-http://lunarsight.com/freq.htm
+A binaural beat is very much akin to the wobble that one hears when tuning an instrument. As tones become very close to each other, the difference between them forms a lower, slower frequency that appears as a sort of beating sound. The periodicity of this beating sound can then be set to correspond to the frequencies and mind-states associated with the brain's electrical patterns. Some studies show that if one listens to a binaural beat with a frequency corresponding to a known activity or state, the mind may be nudged or suggested into adopting that same state.
